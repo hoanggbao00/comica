@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/og";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -55,7 +56,9 @@ const Header = () => {
             Sign In
           </Button>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="btn-comic font-comic">Try Free</Button>
+            <Button className="btn-comic font-comic" asChild>
+              <Link href="/studio">Try Free</Link>
+            </Button>
           </motion.div>
         </motion.div>
       </nav>
