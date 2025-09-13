@@ -49,7 +49,7 @@ export const OpenGraph: Metadata = {
       default: APP_DEFAULT_TITLE,
       template: APP_TITLE_TEMPLATE,
     },
-    images: `${process.env.VERCEL_URL}/og-image.png`,
+    images: "/og-image.png",
     description: APP_DESCRIPTION,
   },
   twitter: {
@@ -59,6 +59,6 @@ export const OpenGraph: Metadata = {
       template: APP_TITLE_TEMPLATE,
     },
     description: APP_DESCRIPTION,
-    images: `${process.env.VERCEL_URL}/og-image.png`,
+    images: "/og-image.png",
   },
 };
