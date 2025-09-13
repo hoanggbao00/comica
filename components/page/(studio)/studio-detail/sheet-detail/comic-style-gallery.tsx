@@ -71,7 +71,7 @@ const GalleryCarousel: React.FC = () => {
                   }}
                 >
                   <div
-                    className={`relative h-80 w-80 overflow-hidden rounded-2xl border border-gallery-border bg-background shadow-lg transition-all duration-300 hover:shadow-xl ${isCenter ? "shadow-2xl ring-2 ring-primary/20" : ""}
+                    className={`relative aspect-[5/6] h-80 overflow-hidden rounded-2xl border border-gallery-border bg-background shadow-lg transition-all duration-300 hover:shadow-xl ${isCenter ? "shadow-2xl ring-2 ring-primary/20" : ""}
                     `}
                   >
                     {/* Image */}
@@ -82,14 +82,14 @@ const GalleryCarousel: React.FC = () => {
                         className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                       {isCenter && (
-                        <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">SELECTED</Badge>
+                        <Badge className="absolute top-4 left-4 bg-comic-green text-accent-foreground">SELECTED</Badge>
                       )}
                     </div>
 
                     {/* Content */}
-                    <div className="p-6">
+                    <div className="p-4">
                       <h3 className="mb-2 font-bold text-foreground text-xl">{item.title}</h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                      <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">{item.description}</p>
                     </div>
 
                     {/* Glassmorphism overlay for non-center items */}

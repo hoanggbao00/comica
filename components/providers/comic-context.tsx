@@ -39,7 +39,7 @@ interface ComicProviderProps {
 export const ComicProvider = ({ children }: ComicProviderProps) => {
   const [selectedStyleIndex, setSelectedStyleIndex] = useState(0);
   const [storyText, setStoryText] = useState("");
-  const [tabActive, setTabActive] = useState<"story" | "preview">("story");
+  const [tabActive, setTabActive] = useState<"story" | "preview">("preview");
   const [currentChapterId, setCurrentChapterId] = useState("1");
 
   const getItemIndex = (index: number) => {

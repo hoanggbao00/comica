@@ -1,19 +1,24 @@
 "use client";
+
 import { useComicContext } from "@/components/providers/comic-context";
 import { ComicPanel } from "./comic-panel";
 import DetailFooter from "./detail-footer";
 import DetailHeader from "./detail-header";
 import GeneratingMoreState from "./generating-more-state";
+import NewScreen from "../new-screen";
 
 interface Props {
   id: string;
 }
 
 export default function DetailScreen(props: Props) {
+  const { tabActive } = useComicContext();
   // biome-ignore lint/correctness/noUnusedVariables: <explanation>
   const { id } = props;
   const { currentChapterData } = useComicContext();
   const idMain = "reader-content";
+
+  if (tabActive === "story") return <NewScreen />;
 
   return (
     <div className="h-full min-h-0 flex-1 overflow-y-auto">

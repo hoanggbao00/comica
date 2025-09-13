@@ -49,7 +49,7 @@ export default function SheetDetail() {
         <Button
           onClick={handlePrevStyle}
           className="-translate-y-1/2 absolute top-1/2 left-4 z-20 transform border-4 border-black bg-comic-yellow font-bold text-black shadow-comic transition-all duration-300 hover:scale-105 hover:bg-comic-orange hover:shadow-comic-lg active:scale-95"
-          size="lg"
+          size="icon"
         >
           <ChevronLeftIcon className="h-6 w-6" />
         </Button>
@@ -58,8 +58,8 @@ export default function SheetDetail() {
 
         <Button
           onClick={handleNextStyle}
-          className="-translate-y-1/2 absolute top-1/2 right-4 z-20 transform border-4 border-black bg-comic-yellow font-bold text-black shadow-comic transition-all duration-300 hover:scale-105 hover:bg-comic-orange hover:shadow-comic-lg active:scale-95"
-          size="lg"
+          className="-translate-y-1/2 absolute top-1/2 right-4 z-22 transform border-4 border-black bg-comic-yellow font-bold text-black shadow-comic transition-all duration-300 hover:scale-105 hover:bg-comic-orange hover:shadow-comic-lg active:scale-95"
+          size="icon"
         >
           <ChevronRightIcon className="h-6 w-6" />
         </Button>

@@ -38,7 +38,7 @@ export default function NewScreen() {
             <div className="flex flex-col justify-center gap-6 sm:flex-row">
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button className="btn-comic data-[state=open]:hover:!scale-100 h-20 flex-1 transform rounded-2xl border-2 border-black bg-comic-green/50 font-bold text-black text-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-comic-pink/50 active:scale-95">
+                  <Button className="btn-comic data-[state=open]:hover:!scale-100 !bg-comic-green/50 hover:!bg-comic-pink/50 h-20 flex-1 transform rounded-2xl border-2 border-black font-bold text-black text-lg backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95">
                     ✨ Create a story from a text prompt
                   </Button>
                 </PopoverTrigger>
@@ -69,7 +69,7 @@ export default function NewScreen() {
                 </PopoverContent>
               </Popover>
               <Button
-                className="btn-comic h-20 flex-1 transform rounded-2xl border-2 border-black bg-comic-yellow/50 font-bold text-black text-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-comic-yellow active:scale-95"
+                className="btn-comic !bg-comic-yellow/50 hover:!bg-comic-yellow h-20 flex-1 transform rounded-2xl border-2 border-black font-bold text-black text-lg backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
                 onClick={setExampleStory}
               >
                 📖 Get started with a sample story
@@ -97,7 +97,7 @@ export default function NewScreen() {
               Word count: {wordCount}/{maxWords}
             </div>
             <SheetTrigger asChild>
-              <Button className="btn-comic w-fit" size="lg">
+              <Button className="btn-comic !bg-comic-blue !text-white w-fit" size="lg">
                 Next <ArrowRightIcon />
               </Button>
             </SheetTrigger>
