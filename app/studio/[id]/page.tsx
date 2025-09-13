@@ -6,13 +6,9 @@ import { ComicProvider } from "@/components/providers/detail-context";
 import { Sheet } from "@/components/ui/sheet";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ArrowLeft } from "lucide-react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 
-const SheetDetail = dynamic(() => import("@/components/page/(studio)/studio-detail/sheet-detail"));
-
 export default async function DetailStudio(props: PageProps) {
-  // 'new-comic' or id of existing comic
   const id = (await props.params).id;
 
   return (
@@ -28,12 +24,11 @@ export default async function DetailStudio(props: PageProps) {
                 <ArrowLeft size={20} />
               </Link>
               <HeaderTaskDetail id={id} />
-              <ChangeArtStyleButton />
+              <ChangeArtStyleButton id={id} />
             </header>
           </TooltipProvider>
           <DetailScreen id={id} />
         </div>
-        <SheetDetail />
       </ComicProvider>
     </Sheet>
   );
