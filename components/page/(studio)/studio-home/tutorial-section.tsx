@@ -9,7 +9,7 @@ const TutorialsSection = () => {
       id: 1,
       title: "Create a comic from a story",
       description:
-        "Welcome to Dashtoon Studio! In this video, we'll guide you through the initial steps of creating your first comic using our AI-powered platform.",
+        "Welcome to Comica! In this video, we'll guide you through the initial steps of creating your first comic using our AI-powered platform.",
       thumbnail: "/images/studio/tutorial-1.jpg",
       duration: "5 min",
       tag: "Beginner",
@@ -18,7 +18,7 @@ const TutorialsSection = () => {
       id: 2,
       title: "From screenplay to comic",
       description:
-        "In this Dashtoon Studio tutorial, we dive into the details of editing your comic. Learn how to refine panels, adjust dialogues...",
+        "In this tutorial, we dive into the details of editing your comic. Learn how to refine panels, adjust dialogues...",
       thumbnail: "/images/studio/tutorial-1.jpg",
       duration: "8 min",
       tag: "Intermediate",
@@ -27,7 +27,7 @@ const TutorialsSection = () => {
       id: 3,
       title: "Character consistency guide",
       description:
-        "In this Dashtoon Studio tutorial, we focus on refining character details in your comic to ensure visual consistency.",
+        "In this tutorial, we focus on refining character details in your comic to ensure visual consistency.",
       thumbnail: "/images/studio/tutorial-1.jpg",
       duration: "6 min",
       tag: "Advanced",
@@ -36,7 +36,7 @@ const TutorialsSection = () => {
       id: 4,
       title: "How to get consistent dress",
       description:
-        "In this Dashtoon Studio tutorial, we focus on fixing and refining your character's clothing consistency across panels.",
+        "In this tutorial, we focus on fixing and refining your character's clothing consistency across panels.",
       thumbnail: "/images/studio/tutorial-1.jpg",
       duration: "4 min",
       tag: "Tips",
@@ -45,7 +45,7 @@ const TutorialsSection = () => {
       id: 5,
       title: "Get amazing hands in comics",
       description:
-        "In this Dashtoon Studio tutorial, we address a common issue with AI-generated art - drawing realistic hands in comic panels.",
+        "In this tutorial, we address a common issue with AI-generated art - drawing realistic hands in comic panels.",
       thumbnail: "/images/studio/tutorial-1.jpg",
       duration: "7 min",
       tag: "Advanced",
@@ -54,7 +54,7 @@ const TutorialsSection = () => {
       id: 6,
       title: "Editing panel backgrounds",
       description:
-        "In this Dashtoon Studio tutorial, we focus on correcting and enhancing the background elements of your comic panels.",
+        "In this tutorial, we focus on correcting and enhancing the background elements of your comic panels.",
       thumbnail: "/images/studio/tutorial-1.jpg",
       duration: "9 min",
       tag: "Intermediate",
@@ -87,7 +87,7 @@ const TutorialsSection = () => {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {tutorials.map((tutorial) => (
-          <Card key={tutorial.id} className="card-comic group cursor-pointer overflow-hidden">
+          <Card key={tutorial.id} className="card-comic group cursor-pointer overflow-hidden hover:border-comic-yellow">
             <div className="relative">
               <img
                 src={tutorial.thumbnail}

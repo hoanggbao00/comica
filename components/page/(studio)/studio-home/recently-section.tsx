@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Plus } from "lucide-react";
+import Link from "next/link";
 
 const RecentlySection = () => {
   const recentComics = [
@@ -25,7 +26,9 @@ const RecentlySection = () => {
       </div>
       <h3 className="mb-2 font-bold text-lg text-muted-foreground">Create Your First Comic</h3>
       <p className="mb-4 text-center text-muted-foreground text-sm">Start your comic creation journey with AI</p>
-      <Button className="btn-comic">Start Creating</Button>
+      <Button className="btn-comic" asChild>
+        <Link href="/studio/new-comic">Start Creating</Link>
+      </Button>
     </Card>
   );
 

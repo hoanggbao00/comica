@@ -7,6 +7,7 @@ const APP_DESCRIPTION =
   "Comica is a revolutionary AI comic creation tool designed for storytellers and artists. Our MVP allows you to generate powerful comic panels and pages from simple text prompts, giving you the power to bring your stories to life with a unique, brutalist-inspired artistic style. Whether you're a writer looking to visualize your narratives or an artist seeking inspiration, Comica makes comic creation effortless and fun. Unleash your creativity and transform your ideas into stunning comics in seconds!";
 
 export const OpenGraph: Metadata = {
+  metadataBase: new URL(process.env.VERCEL_URL || "http://localhost:3000"),
   applicationName: APP_NAME,
   title: {
     default: APP_DEFAULT_TITLE,
