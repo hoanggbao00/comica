@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 export const APP_NAME = "Comica";
 const APP_DEFAULT_TITLE = "Comica";
 const APP_TITLE_TEMPLATE = `%s - ${APP_NAME}`;
-const APP_DESCRIPTION = "";
+const APP_DESCRIPTION =
+  "Comica is a revolutionary AI comic creation tool designed for storytellers and artists. Our MVP allows you to generate powerful comic panels and pages from simple text prompts, giving you the power to bring your stories to life with a unique, brutalist-inspired artistic style. Whether you're a writer looking to visualize your narratives or an artist seeking inspiration, Comica makes comic creation effortless and fun. Unleash your creativity and transform your ideas into stunning comics in seconds!";
 
 export const OpenGraph: Metadata = {
   applicationName: APP_NAME,
