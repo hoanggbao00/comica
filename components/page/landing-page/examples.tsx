@@ -191,13 +191,14 @@ const Examples = () => {
           animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          <motion.button
+          <motion.a
+            href="/studio"
             className="btn-hero px-8 py-4 font-comic text-lg"
             whileHover={{ scale: 1.05, rotate: 2 }}
             whileTap={{ scale: 0.95 }}
           >
             Start Creating Your Comic 🚀
-          </motion.button>
+          </motion.a>
         </motion.div>
       </div>
     </section>

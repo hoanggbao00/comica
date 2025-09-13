@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { type Variants, motion } from "motion/react";
+import Link from "next/link";
 
 const Hero = () => {
   const containerVariants: Variants = {
@@ -86,12 +87,11 @@ const Hero = () => {
         </motion.p>
 
         {/* CTA Buttons */}
-        <motion.div
-          className="mb-16 flex flex-col items-center justify-center gap-4 sm:flex-row"
-          variants={itemVariants}
-        >
+        <motion.div className="mb-16 flex flex-col items-center justify-center gap-4" variants={itemVariants}>
           <motion.div whileHover={{ scale: 1.05, rotate: 1 }} whileTap={{ scale: 0.95 }}>
-            <Button className="btn-hero px-8 py-6 font-comic text-xl">Start Creating Free 🎨</Button>
+            <Button asChild className="btn-hero px-8 py-6 font-comic text-xl">
+              <Link href="/studio">Start Creating Free 🎨</Link>
+            </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05, rotate: -1 }} whileTap={{ scale: 0.95 }}>
             <Button

@@ -121,7 +121,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border antialiased scroll-smooth;
   }
 
   body {
