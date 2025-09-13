@@ -27,7 +27,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
           <NextTopLoader showSpinner={false} />
-          <Toaster richColors theme="system" position="bottom-right" duration={2000} closeButton />
+          <Toaster richColors theme="system" position="top-right" duration={2000} closeButton />
         </ThemeProvider>
       </body>
     </html>

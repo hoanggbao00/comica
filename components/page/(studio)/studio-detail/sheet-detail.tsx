@@ -1,14 +1,18 @@
 "use client";
 
+import { useComicContext } from "@/components/providers/detail-context";
 import { Button } from "@/components/ui/button";
 import { SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { comicStyles } from "@/lib/mock-comic-style";
-import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, XIcon } from "lucide-react";
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, Loader2Icon, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import GalleryCarousel from "./comic-style-gallery";
-import { useComicContext } from "@/components/providers/detail-context";
 
 export default function SheetDetail() {
-  const { selectedStyleIndex, setSelectedStyleIndex } = useComicContext();
+  const { selectedStyleIndex, setSelectedStyleIndex, storyText } = useComicContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handlePrevStyle = () => {
     setSelectedStyleIndex(selectedStyleIndex === 0 ? comicStyles.length - 1 : selectedStyleIndex - 1);
@@ -17,6 +21,21 @@ export default function SheetDetail() {
   const handleNextStyle = () => {
     setSelectedStyleIndex(selectedStyleIndex === comicStyles.length - 1 ? 0 : selectedStyleIndex + 1);
   };
+
+  async function onSubmit() {
+    if (!storyText.trim()) return;
+    setIsLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setTimeout(() => {
+        router.push("/studio/2");
+      }, 500);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <SheetContent side="bottom" hideClose className="max-h-[80svh] rounded-t-3xl border-0">
@@ -49,9 +68,12 @@ export default function SheetDetail() {
         <Button
           className="mx-auto w-fit transform rounded-2xl border-4 border-black bg-comic-blue px-12 py-4 font-bold text-lg text-white shadow-comic transition-all duration-300 hover:scale-105 hover:bg-comic-purple hover:shadow-comic-lg active:scale-95"
           size="lg"
+          onClick={onSubmit}
+          disabled={isLoading}
         >
-          Next
-          <ArrowRightIcon />
+          {isLoading && <Loader2Icon className="animate-spin" />}
+          {isLoading ? "Submitting" : "Next"}
+          {!isLoading && <ArrowRightIcon />}
         </Button>
       </SheetFooter>
     </SheetContent>
