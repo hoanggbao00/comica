@@ -1,7 +1,7 @@
 import { useComicContext } from "@/components/providers/detail-context";
 import { Badge } from "@/components/ui/badge";
 import { comicStyles } from "@/lib/mock-comic-style";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import type React from "react";
 
 const GalleryCarousel: React.FC = () => {
