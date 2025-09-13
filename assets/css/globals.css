@@ -1,0 +1,130 @@
+@import "tailwindcss";
+@import "./animates.css";
+@import "./utilities.css";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  --color-comic-yellow: hsl(var(--comic-yellow));
+  --color-comic-orange: hsl(var(--comic-orange));
+  --color-comic-red: hsl(var(--comic-red));
+  --color-comic-blue: hsl(var(--comic-blue));
+  --color-comic-pink: hsl(var(--comic-pink));
+  --color-comic-green: hsl(var(--comic-green));
+  --color-comic-purple: hsl(var(--comic-purple));
+
+  --shadow-comic: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-comic-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-neon: 0 0 5px hsl(var(--primary)), 0 0 20px hsl(var(--primary)), 0 0
+    35px hsl(var(--primary));
+  --shadow-glow: 0 0 20px rgba(96, 165, 250, 0.3);
+
+  --background-image-gradient-comic: var(--gradient-comic);
+  --background-image-gradient-hero: var(--gradient-hero);
+  --background-image-gradient-bg: var(--gradient-bg);
+
+  --font-comic: Comic Neue, cursive;
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+:root {
+  --comic-yellow: 45 95% 65%;
+  --comic-orange: 25 95% 60%;
+  --comic-red: 0 85% 55%;
+  --comic-blue: 220 85% 55%;
+  --comic-pink: 320 75% 65%;
+  --comic-green: 120 70% 50%;
+  --comic-purple: 270 65% 55%;
+
+  /* Background & Text */
+  --background: 220 15% 95%;
+  --foreground: 0 0% 5%;
+
+  /* Component Colors */
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 5%;
+
+  --primary: var(--comic-blue);
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: var(--comic-yellow);
+  --secondary-foreground: 0 0% 0%;
+
+  --accent: var(--comic-pink);
+  --accent-foreground: 0 0% 0%;
+
+  --muted: 220 15% 90%;
+  --muted-foreground: 0 0% 40%;
+
+  --destructive: var(--comic-red);
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 0 0% 0%;
+  --input: 0 0% 100%;
+  --ring: var(--comic-blue);
+
+  /* Comic Gradients */
+  --gradient-comic: linear-gradient(
+    135deg,
+    hsl(var(--comic-yellow)),
+    hsl(var(--comic-orange))
+  );
+  --gradient-hero: linear-gradient(
+    135deg,
+    hsl(var(--comic-blue)),
+    hsl(var(--comic-purple))
+  );
+  --gradient-bg: linear-gradient(135deg, hsl(220 50% 95%), hsl(270 30% 92%));
+
+  --radius: 1rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

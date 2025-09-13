@@ -1,0 +1,66 @@
+@utility btn-comic {
+  @apply bg-secondary hover:bg-accent text-secondary-foreground font-bold py-3 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-comic hover:shadow-comic-lg border-4 border-black;
+}
+@utility btn-hero {
+  @apply bg-primary hover:bg-accent text-primary-foreground font-bold py-4 px-8 rounded-3xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-comic-lg hover:shadow-neon border-4 border-black;
+}
+@utility comic-card {
+  @apply bg-card border-4 border-black rounded-3xl shadow-comic hover:shadow-comic-lg transition-all duration-300 transform hover:-translate-y-1;
+}
+@utility comic-speech-bubble {
+  @apply bg-white border-4 border-black rounded-3xl p-4 relative shadow-comic;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid black;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -11px;
+    left: 32px;
+    width: 0;
+    height: 0;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-top: 13px solid white;
+    z-index: 1;
+  }
+}
+@utility comic-dot-pattern {
+  background-image: radial-gradient(circle, #000 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.1;
+}
+@utility animation-delay-1000 {
+  animation-delay: 1s;
+}
+@utility animation-delay-1500 {
+  animation-delay: 1.5s;
+}
+@utility animation-delay-2000 {
+  animation-delay: 2s;
+}
+@utility animation-delay-2500 {
+  animation-delay: 2.5s;
+}
+@utility animation-delay-3000 {
+  animation-delay: 3s;
+}
+@utility animation-delay-3500 {
+  animation-delay: 3.5s;
+}
+@utility animation-delay-4000 {
+  animation-delay: 4s;
+}
+@utility animation-delay-500 {
+  animation-delay: 0.5s;
+}
