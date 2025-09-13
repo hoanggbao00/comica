@@ -4,7 +4,7 @@ import { ComicProvider } from "@/components/providers/detail-context";
 import { Sheet } from "@/components/ui/sheet";
 import dynamic from "next/dynamic";
 
-const SheetDetail = dynamic(() => import("@/components/page/(studio)/studio-detail/sheet-detail"));
+const SheetDetail = dynamic(() => import("@/components/page/(studio)/studio-detail/sheet-detail/sheet-detail"));
 
 export default async function StudioNewComic() {
   return (

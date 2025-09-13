@@ -1,9 +1,9 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import ChangeArtStyleButton from "../change-art-style-button";
-import HeaderTaskDetail from "../header-task-detail";
+import ChangeArtStyleButton from "./change-art-style-button";
 import ChangeTabHeader from "./change-tab";
+import HeaderTaskDetail from "./header-task-detail";
 
 interface Props {
   id: string;
