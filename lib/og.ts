@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
-const APP_NAME = "My Template";
-const APP_DEFAULT_TITLE = "My Template";
+export const APP_NAME = "Comica";
+const APP_DEFAULT_TITLE = "Comica";
 const APP_TITLE_TEMPLATE = `%s - ${APP_NAME}`;
-const APP_DESCRIPTION = "Just a template";
+const APP_DESCRIPTION = "";
 
 export const OpenGraph: Metadata = {
   applicationName: APP_NAME,

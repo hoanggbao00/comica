@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { APP_NAME } from "@/lib/og";
 import { motion } from "motion/react";
 
 const Header = () => {
@@ -22,7 +23,7 @@ const Header = () => {
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl border-4 border-black bg-primary shadow-comic">
             <span className="font-bold text-primary-foreground text-xl">C</span>
           </div>
-          <span className="font-bold font-comic text-2xl text-foreground">ComicAI</span>
+          <span className="font-bold font-comic text-2xl text-foreground">{APP_NAME}</span>
         </motion.div>
 
         {/* Navigation */}

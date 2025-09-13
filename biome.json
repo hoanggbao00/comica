@@ -48,7 +48,11 @@
     "rules": {
       "recommended": true,
       "complexity": {
-        "useSimplifiedLogicExpression": "off"
+        "useSimplifiedLogicExpression": "off",
+        "noForEach": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
       },
       "correctness": {
         "noUnusedImports": "error",
