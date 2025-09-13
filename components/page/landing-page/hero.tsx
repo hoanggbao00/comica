@@ -109,14 +109,13 @@ const Hero = () => {
             (feature, index) => (
               <motion.div
                 key={index}
-                className="rounded-full border-2 border-black bg-secondary/20 px-4 py-2 font-comic font-medium"
+                className="cursor-default rounded-full border-2 border-black bg-secondary/20 px-4 py-2 font-comic font-medium"
                 initial={{ scale: 0, rotate: 180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{
                   type: "spring" as const,
                   damping: 15,
                   stiffness: 300,
-                  delay: 1.5 + index * 0.1,
                 }}
                 whileHover={{
                   scale: 1.1,
