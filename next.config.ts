@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   devIndicators: false,
   experimental: {
-    typedRoutes: true,
     reactCompiler: true,
   },
 };

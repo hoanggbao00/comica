@@ -61,6 +61,7 @@
   --background-image-gradient-bg: var(--gradient-bg);
 
   --font-comic: Comic Neue, cursive;
+  --font-geist: Geist, system-ui, sans-serif;
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);

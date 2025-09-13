@@ -10,6 +10,8 @@ interface ComicContextType {
   storyText: string;
   setStoryText: (text: string) => void;
   comicStyleSelected: ComicStyle;
+  tabActive: "story" | "preview";
+  setTabActive: (tab: "story" | "preview") => void;
 }
 
 // Create the context
@@ -24,6 +26,7 @@ interface ComicProviderProps {
 export const ComicProvider = ({ children }: ComicProviderProps) => {
   const [selectedStyleIndex, setSelectedStyleIndex] = useState(0);
   const [storyText, setStoryText] = useState("");
+  const [tabActive, setTabActive] = useState<"story" | "preview">("story");
 
   const getItemIndex = (index: number) => {
     const i = ((index % comicStyles.length) + comicStyles.length) % comicStyles.length;
@@ -38,6 +41,8 @@ export const ComicProvider = ({ children }: ComicProviderProps) => {
     storyText,
     setStoryText,
     comicStyleSelected,
+    tabActive,
+    setTabActive,
   };
 
   return <ComicContext.Provider value={value}>{children}</ComicContext.Provider>;
