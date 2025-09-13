@@ -1,6 +1,6 @@
 "use client";
 
-import { useComicContext } from "@/components/providers/detail-context";
+import { useComicContext } from "@/components/providers/comic-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";

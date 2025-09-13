@@ -1,6 +1,6 @@
 "use client";
 
-import { useComicContext } from "@/components/providers/detail-context";
+import { useComicContext } from "@/components/providers/comic-context";
 import { Button } from "@/components/ui/button";
 import { SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { comicStyles } from "@/lib/mock-comic-style";

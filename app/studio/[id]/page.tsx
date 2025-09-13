@@ -1,6 +1,6 @@
-import DetailScreen from "@/components/page/(studio)/studio-detail/detail-screen";
+import DetailScreen from "@/components/page/(studio)/studio-detail/detail-screen/detail-screen";
 import StudioDetailHeader from "@/components/page/(studio)/studio-detail/header/studio-detail-header";
-import { ComicProvider } from "@/components/providers/detail-context";
+import { ComicProvider } from "@/components/providers/comic-context";
 import { Sheet } from "@/components/ui/sheet";
 import type { PageProps } from "@/types/page-props";
 

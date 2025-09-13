@@ -1,6 +1,6 @@
 "use client";
 
-import { useComicContext } from "@/components/providers/detail-context";
+import { useComicContext } from "@/components/providers/comic-context";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 

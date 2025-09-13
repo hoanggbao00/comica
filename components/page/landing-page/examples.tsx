@@ -110,7 +110,7 @@ const Examples = () => {
           {examples.map((example, index) => (
             <motion.div
               key={index}
-              className="comic-card group p-6"
+              className="hover:-translate-y-1 group transform rounded-3xl border-4 border-black bg-card p-6 shadow-comic transition-all duration-300 hover:shadow-comic-lg"
               variants={itemVariants}
               whileHover={{
                 y: -10,
@@ -172,13 +172,14 @@ const Examples = () => {
                   delay: 0.8 + index * 0.1,
                 }}
               >
-                <motion.button
-                  className="btn-comic w-full py-2 text-sm"
+                <motion.a
+                  href="/studio"
+                  className="btn-comic block w-full py-2 text-center text-sm"
                   whileHover={{ scale: 1.05, rotate: 1 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Create Similar
-                </motion.button>
+                </motion.a>
               </motion.div>
             </motion.div>
           ))}
@@ -192,8 +193,8 @@ const Examples = () => {
           transition={{ duration: 0.8, delay: 1.2 }}
         >
           <motion.a
-            href="/studio"
-            className="btn-hero px-8 py-4 font-comic text-lg"
+            href="/studio/new-comic"
+            className="btn-hero font-comic text-lg"
             whileHover={{ scale: 1.05, rotate: 2 }}
             whileTap={{ scale: 0.95 }}
           >

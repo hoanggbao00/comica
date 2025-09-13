@@ -1,4 +1,4 @@
-import { useComicContext } from "@/components/providers/detail-context";
+import { useComicContext } from "@/components/providers/comic-context";
 import { Badge } from "@/components/ui/badge";
 import { comicStyles } from "@/lib/mock-comic-style";
 import { motion } from "motion/react";

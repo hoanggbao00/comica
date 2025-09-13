@@ -89,16 +89,17 @@ const Hero = () => {
         {/* CTA Buttons */}
         <motion.div className="mb-16 flex flex-col items-center justify-center gap-4" variants={itemVariants}>
           <motion.div whileHover={{ scale: 1.05, rotate: 1 }} whileTap={{ scale: 0.95 }}>
-            <Button asChild className="btn-hero px-8 py-6 font-comic text-xl">
-              <Link href="/studio">Start Creating Free 🎨</Link>
+            <Button asChild className="btn-hero font-comic text-xl">
+              <Link href="/studio/new-comic">Start Creating Free 🎨</Link>
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05, rotate: -1 }} whileTap={{ scale: 0.95 }}>
             <Button
+              asChild
               variant="outline"
               className="rounded-2xl border-4 border-black px-6 py-4 font-comic text-lg shadow-comic transition-all hover:shadow-comic-lg"
             >
-              Watch Demo
+              <Link href={"/studio/new-comic"}>Watch Demo</Link>
             </Button>
           </motion.div>
         </motion.div>

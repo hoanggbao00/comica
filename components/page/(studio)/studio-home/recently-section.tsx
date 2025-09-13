@@ -20,13 +20,13 @@ const RecentlySection = () => {
   ];
 
   const EmptyCard = () => (
-    <Card className="card-comic flex min-h-[280px] flex-col items-center justify-center border-dashed bg-muted/50 p-8">
+    <Card className="flex min-h-[280px] flex-col items-center justify-center border-dashed bg-muted/50 p-8">
       <div className="mb-4 rounded-full bg-comic-yellow/20 p-4">
         <Plus className="h-8 w-8 text-comic-purple" />
       </div>
       <h3 className="mb-2 font-bold text-lg text-muted-foreground">Create Your First Comic</h3>
       <p className="mb-4 text-center text-muted-foreground text-sm">Start your comic creation journey with AI</p>
-      <Button className="btn-comic" asChild>
+      <Button className="btn-comic !bg-comic-blue hover:!bg-comic-orange !text-white" asChild>
         <Link href="/studio/new-comic">Start Creating</Link>
       </Button>
     </Card>
@@ -34,21 +34,23 @@ const RecentlySection = () => {
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const ComicCard = ({ comic }: { comic: any }) => (
-    <Card className="card-comic group cursor-pointer overflow-hidden">
-      <div className="relative">
-        <img
-          src={comic.thumbnail}
-          alt={comic.title}
-          className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        <div className="absolute top-2 right-2 rounded-lg border-2 border-black bg-comic-yellow px-2 py-1 font-bold text-black text-xs">
-          {comic.episodes} EP
+    <Card className="group cursor-pointer overflow-hidden">
+      <Link href={`/studio/${comic.id}`}>
+        <div className="relative">
+          <img
+            src={comic.thumbnail}
+            alt={comic.title}
+            className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+          <div className="absolute top-2 right-2 rounded-lg border-2 border-black bg-comic-yellow px-2 py-1 font-bold text-black text-xs">
+            {comic.episodes} EP
+          </div>
         </div>
-      </div>
-      <div className="p-4">
-        <h3 className="mb-1 font-bold text-lg">{comic.title}</h3>
-        <p className="text-muted-foreground text-sm">{comic.episodes} episodes</p>
-      </div>
+        <div className="p-4">
+          <h3 className="mb-1 font-bold text-lg">{comic.title}</h3>
+          <p className="text-muted-foreground text-sm">{comic.episodes} episodes</p>
+        </div>
+      </Link>
     </Card>
   );
 

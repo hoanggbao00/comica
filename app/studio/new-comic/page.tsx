@@ -1,6 +1,6 @@
 import StudioDetailHeader from "@/components/page/(studio)/studio-detail/header/studio-detail-header";
 import NewScreen from "@/components/page/(studio)/studio-detail/new-screen";
-import { ComicProvider } from "@/components/providers/detail-context";
+import { ComicProvider } from "@/components/providers/comic-context";
 import { Sheet } from "@/components/ui/sheet";
 import dynamic from "next/dynamic";
 

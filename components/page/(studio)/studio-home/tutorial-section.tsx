@@ -87,7 +87,7 @@ const TutorialsSection = () => {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {tutorials.map((tutorial) => (
-          <Card key={tutorial.id} className="card-comic group cursor-pointer overflow-hidden hover:border-comic-yellow">
+          <Card key={tutorial.id} className="group cursor-pointer overflow-hidden hover:border-comic-yellow">
             <div className="relative">
               <img
                 src={tutorial.thumbnail}

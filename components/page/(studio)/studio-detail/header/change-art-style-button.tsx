@@ -1,6 +1,6 @@
 "use client";
 
-import { useComicContext } from "@/components/providers/detail-context";
+import { useComicContext } from "@/components/providers/comic-context";
 import { SheetTrigger } from "@/components/ui/sheet";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
