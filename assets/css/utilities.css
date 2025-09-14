@@ -1,6 +1,6 @@
 @layer utilities {
   .btn-comic {
-    @apply bg-secondary hover:bg-accent text-secondary-foreground font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-comic hover:shadow-comic-lg border-4 border-black;
+    @apply font-bold rounded-2xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-comic hover:shadow-comic-lg border-4 border-black;
   }
   .btn-hero {
     @apply bg-primary hover:bg-accent text-primary-foreground font-bold py-4 px-8 rounded-3xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-comic-lg hover:shadow-neon border-4 border-black h-12;

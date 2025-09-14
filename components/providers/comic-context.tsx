@@ -25,6 +25,12 @@ interface ComicContextType {
 
   isGenerating: boolean;
   setIsGenerating: (generating: boolean) => void;
+
+  isCreating: boolean;
+  setIsCreating: (creating: boolean) => void;
+
+  isCreateSuccess: boolean;
+  setIsCreateSuccess: (success: boolean) => void;
 }
 
 // Create the context
@@ -41,6 +47,8 @@ export const ComicProvider = ({ children }: ComicProviderProps) => {
   const [storyText, setStoryText] = useState("");
   const [tabActive, setTabActive] = useState<"story" | "preview">("preview");
   const [currentChapterId, setCurrentChapterId] = useState("1");
+  const [isCreating, setIsCreating] = useState(false);
+  const [isCreateSuccess, setIsCreateSuccess] = useState(false);
 
   const getItemIndex = (index: number) => {
     const i = ((index % comicStyles.length) + comicStyles.length) % comicStyles.length;
@@ -77,6 +85,12 @@ export const ComicProvider = ({ children }: ComicProviderProps) => {
 
     isGenerating,
     setIsGenerating,
+
+    isCreating,
+    setIsCreating,
+
+    isCreateSuccess,
+    setIsCreateSuccess,
   };
 
   return <ComicContext.Provider value={value}>{children}</ComicContext.Provider>;

@@ -50,11 +50,11 @@ export default function DetailFooter({ idMain }: Props) {
     <footer className="sticky bottom-0 border-black border-t-4 bg-card p-4 shadow-comic-lg">
       <div className="mx-auto flex max-w-4xl items-center justify-between">
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={scrollToTop} className="btn-comic">
+          <Button variant="outline" size="sm" onClick={scrollToTop} className="btn-comic bg-comic-yellow/70">
             <ChevronUpIcon className="h-4 w-4" />
             Top
           </Button>
-          <Button variant="outline" size="sm" onClick={scrollToBottom} className="btn-comic">
+          <Button variant="outline" size="sm" onClick={scrollToBottom} className="btn-comic bg-comic-yellow/70">
             <ChevronDownIcon className="h-4 w-4" />
             Bottom
           </Button>
@@ -63,7 +63,7 @@ export default function DetailFooter({ idMain }: Props) {
         <Button
           onClick={generateNextChapter}
           disabled={isGenerating}
-          className="btn-comic bg-primary text-primary-foreground hover:bg-primary/90"
+          className="btn-comic bg-comic-yellow font-comic text-black hover:bg-comic-pink"
         >
           {isGenerating ? (
             <>

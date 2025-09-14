@@ -52,11 +52,8 @@ const Header = () => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <Button variant="ghost" className="hidden font-comic md:inline-flex">
-            Sign In
-          </Button>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="btn-comic font-comic" asChild>
+            <Button className="btn-comic font-comic hover:bg-comic-orange" asChild>
               <Link href="/studio">Try Free</Link>
             </Button>
           </motion.div>

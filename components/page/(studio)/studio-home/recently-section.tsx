@@ -20,21 +20,21 @@ const RecentlySection = () => {
   ];
 
   const EmptyCard = () => (
-    <Card className="flex min-h-[280px] flex-col items-center justify-center border-dashed bg-muted/50 p-8">
-      <div className="mb-4 rounded-full bg-comic-yellow/20 p-4">
-        <Plus className="h-8 w-8 text-comic-purple" />
-      </div>
-      <h3 className="mb-2 font-bold text-lg text-muted-foreground">Create Your First Comic</h3>
-      <p className="mb-4 text-center text-muted-foreground text-sm">Start your comic creation journey with AI</p>
-      <Button className="btn-comic !bg-comic-blue hover:!bg-comic-orange !text-white" asChild>
-        <Link href="/studio/new-comic">Start Creating</Link>
-      </Button>
+    <Card className="border-dashed bg-muted/50 p-8 transition-all duration-300 hover:scale-105 hover:shadow-comic-lg">
+      <Link href="/studio/new-comic" className="flex flex-col items-center justify-center">
+        <div className="mb-4 rounded-full bg-comic-yellow/20 p-4">
+          <Plus className="h-8 w-8 text-comic-purple" />
+        </div>
+        <h3 className="mb-2 font-bold text-lg text-muted-foreground">Create Your First Comic</h3>
+        <p className="mb-4 text-center text-muted-foreground text-sm">Start your comic creation journey with AI</p>
+        <Button className="btn-comic hover:bg-comic-orange">Start Creating</Button>
+      </Link>
     </Card>
   );
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const ComicCard = ({ comic }: { comic: any }) => (
-    <Card className="group cursor-pointer overflow-hidden">
+    <Card className="group cursor-pointer overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-comic-lg">
       <Link href={`/studio/${comic.id}`}>
         <div className="relative">
           <img
