@@ -182,7 +182,8 @@ export class DifyAPIClient {
 
       // Handle connection timeout
       const timeout = setTimeout(() => {
-        if (eventSource.readyState === EventSource.CONNECTING) {
+        // EventSource.CONNECTING = 0
+        if (eventSource.readyState === 0) {
           eventSource.close();
           reject(new Error("EventSource connection timeout"));
         }
@@ -295,14 +296,16 @@ export class DifyAPIClient {
    * Get current connection status
    */
   getConnectionStatus(): number {
-    return this.eventSourceRef?.readyState ?? EventSource.CLOSED;
+    // EventSource.CLOSED = 2
+    return this.eventSourceRef?.readyState ?? 2;
   }
 
   /**
    * Check if currently connected
    */
   isConnected(): boolean {
-    return this.eventSourceRef?.readyState === EventSource.OPEN;
+    // EventSource.OPEN = 1
+    return this.eventSourceRef?.readyState === 1;
   }
 
   /**

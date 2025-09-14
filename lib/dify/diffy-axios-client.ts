@@ -34,6 +34,3 @@ difyAxiosClient.interceptors.response.use(
 );
 
 export default difyAxiosClient;
-
-// Enhanced Dify API client using Next.js routes
-// Create and export the API client instance

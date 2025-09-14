@@ -1,11 +1,11 @@
 "use client";
 
 import { useComicContext } from "@/components/providers/comic-context";
+import NewScreen from "../new-screen";
 import { ComicPanel } from "./comic-panel";
 import DetailFooter from "./detail-footer";
 import DetailHeader from "./detail-header";
 import GeneratingMoreState from "./generating-more-state";
-import NewScreen from "../new-screen";
 
 interface Props {
   id: string;
@@ -22,7 +22,7 @@ export default function DetailScreen(props: Props) {
 
   return (
     <div className="h-full min-h-0 flex-1 overflow-y-auto">
-      <DetailHeader idMain={idMain} />
+      <DetailHeader />
       <main id={idMain} className="flex-1 px-4 py-8">
         <div className="mx-auto max-w-4xl space-y-8 font-comic">
           <div className="mb-8 text-center">

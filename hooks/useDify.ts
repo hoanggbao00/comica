@@ -1,5 +1,11 @@
+"use client";
+
 import difyNextClient from "@/lib/dify/dify-client";
-import type { SSEMessage, WorkflowInputs, WorkflowResponse } from "@/lib/dify/types";
+import type {
+  SSEMessage,
+  WorkflowInputs,
+  WorkflowResponse,
+} from "@/lib/dify/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useDifyWorkflow = () => {
@@ -15,7 +21,7 @@ export const useDifyWorkflow = () => {
     async (
       inputs: WorkflowInputs,
       mode: "blocking" | "streaming" = "blocking",
-      user = "default-user",
+      user = "default-user"
     ): Promise<void> => {
       setLoading(true);
       setError(null);
@@ -66,7 +72,7 @@ export const useDifyWorkflow = () => {
         }
       }
     },
-    [],
+    []
   );
 
   const closeConnection = useCallback((): void => {
@@ -97,8 +103,8 @@ export const useDifyWorkflow = () => {
     streamMessages,
     error,
     isStreaming,
-    isConnected: difyNextClient.isConnected(),
-    connectionStatus: difyNextClient.getConnectionStatus(),
+    isConnected: difyNextClient?.isConnected() ?? false,
+    connectionStatus: difyNextClient?.getConnectionStatus() ?? "disconnected",
     runWorkflow,
     closeConnection,
     clearResults,
