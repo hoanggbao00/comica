@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function ChangeArtStyleButton(props: Props) {
-  const { comicStyleSelected } = useComicContext();
+  const { comicStyleSelected, isListStyleLoading } = useComicContext();
 
   return (
     <Tooltip delayDuration={500}>
@@ -24,7 +24,9 @@ export default function ChangeArtStyleButton(props: Props) {
         >
           <Palette className="size-5" />
           <div className="text-left">
-            <div className="font-bold text-sm capitalize">{comicStyleSelected?.name}</div>
+            <div className="font-bold text-sm capitalize">
+              {isListStyleLoading ? "Loading..." : comicStyleSelected?.name}
+            </div>
             {props.id === "new-comic" && <div className="text-muted-foreground text-xs">Tap to change style</div>}
           </div>
         </SheetTrigger>

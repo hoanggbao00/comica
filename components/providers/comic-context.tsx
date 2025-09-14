@@ -10,6 +10,7 @@ interface ComicContextType {
   storyText: string;
   setStoryText: (text: string) => void;
   listStyles: ComicStyle[];
+  isListStyleLoading: boolean;
 
   selectedStyleIndex: number;
   setSelectedStyleIndex: (index: number) => void;
@@ -51,7 +52,7 @@ export const ComicProvider = ({ children }: ComicProviderProps) => {
   const [currentChapterId, setCurrentChapterId] = useState("1");
   const [isCreating, setIsCreating] = useState(false);
   const [isCreateSuccess, setIsCreateSuccess] = useState(false);
-  const { data } = useGetStyles();
+  const { data, isLoading: isListStyleLoading } = useGetStyles();
 
   const listStyles = data?.data || [];
 
@@ -97,6 +98,7 @@ export const ComicProvider = ({ children }: ComicProviderProps) => {
     isCreateSuccess,
     setIsCreateSuccess,
     listStyles,
+    isListStyleLoading,
   };
 
   return <ComicContext.Provider value={value}>{children}</ComicContext.Provider>;

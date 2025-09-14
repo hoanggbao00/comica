@@ -1,7 +1,7 @@
 import type { WorkflowRequest } from "@/types/dify";
 import { DIFY_CONFIG } from "./config";
 
-export async function handleSSERequestAppRouter(body: WorkflowRequest) {
+export async function handleSSERequestAppRouter(body: WorkflowRequest, apiKey: string) {
   const encoder = new TextEncoder();
 
   const customReadable = new ReadableStream({
@@ -13,7 +13,7 @@ export async function handleSSERequestAppRouter(body: WorkflowRequest) {
         const response = await fetch(`${DIFY_CONFIG.baseURL}/workflows/run`, {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${DIFY_CONFIG.apiKey}`,
+            Authorization: `Bearer ${apiKey}`,
             "Content-Type": "application/json",
             Accept: "text/event-stream",
           },

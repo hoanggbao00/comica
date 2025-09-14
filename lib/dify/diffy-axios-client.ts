@@ -3,7 +3,7 @@ import type {} from "./types";
 
 // Create Axios instance for Next.js API routes
 const difyAxiosClient: AxiosInstance = axios.create({
-  baseURL: "/api", // Points to Next.js API routes
+  baseURL: "", // Points to Next.js API routes
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,15 +13,13 @@ const difyAxiosClient: AxiosInstance = axios.create({
 // Add request interceptor for logging
 difyAxiosClient.interceptors.request.use(
   (config) => {
-    console.log(
-      `Making request to: ${config.method?.toUpperCase()} ${config.url}`
-    );
+    console.log(`Making request to: ${config.method?.toUpperCase()} ${config.url}`);
     return config;
   },
   (error) => {
     console.error("Request error:", error);
     return Promise.reject(error);
-  }
+  },
 );
 
 // Add response interceptor for error handling
@@ -30,7 +28,7 @@ difyAxiosClient.interceptors.response.use(
   (error: AxiosError) => {
     console.error("Response error:", error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default difyAxiosClient;

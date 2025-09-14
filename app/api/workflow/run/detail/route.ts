@@ -1,26 +1,18 @@
-import { handleSSERequestAppRouter } from "@/lib/api-utils";
 import { DIFY_CONFIG } from "@/lib/config";
-import type { WorkflowRequest } from "@/types/dify";
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    const body: WorkflowRequest = await request.json();
-
+    const { searchParams } = new URL(request.url);
+    const workflowId = searchParams.get("workflow_id");
     // Validate request body
-    if (!body.inputs || !body.user) {
-      return NextResponse.json({ error: "Missing required fields: inputs and user are required" }, { status: 400 });
+    if (!workflowId) {
+      return NextResponse.json({ error: "Missing required fields: workflow_id is required" }, { status: 400 });
     }
 
-    const response_mode = body.response_mode || "blocking";
+    const apiKey = DIFY_CONFIG.apiKeyCreateOverview!;
 
-    const parsedInputs = body.inputs;
-    const apiKey = parsedInputs.context ? DIFY_CONFIG.apiKeyGenerate! : DIFY_CONFIG.apiKeyCreateOverview!;
-
-    if (response_mode === "streaming") {
-      return handleSSERequestAppRouter(body, apiKey);
-    }
-    return handleBlockingRequestAppRouter(body, apiKey);
+    return handleBlockingRequestAppRouter(workflowId!, apiKey);
   } catch (error) {
     console.error("API Error:", error);
     return NextResponse.json(
@@ -34,15 +26,14 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle blocking requests for App Router
-async function handleBlockingRequestAppRouter(body: WorkflowRequest, apiKey: string) {
+async function handleBlockingRequestAppRouter(id: string, apiKey: string) {
   try {
-    const response = await fetch(`${DIFY_CONFIG.baseURL}/workflows/run`, {
-      method: "POST",
+    const response = await fetch(`${DIFY_CONFIG.baseURL}/workflows/run/${id}`, {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
     });
 
     if (!response.ok) {

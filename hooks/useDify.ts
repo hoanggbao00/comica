@@ -1,11 +1,6 @@
 "use client";
-
 import difyNextClient from "@/lib/dify/dify-client";
-import type {
-  SSEMessage,
-  WorkflowInputs,
-  WorkflowResponse,
-} from "@/lib/dify/types";
+import type { SSEMessage, WorkflowInputs, WorkflowResponse } from "@/lib/dify/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useDifyWorkflow = () => {
@@ -19,9 +14,11 @@ export const useDifyWorkflow = () => {
 
   const runWorkflow = useCallback(
     async (
+      url: string,
       inputs: WorkflowInputs,
       mode: "blocking" | "streaming" = "blocking",
-      user = "default-user"
+      user = "abc-123",
+      isStopWhenGetId = false,
     ): Promise<void> => {
       setLoading(true);
       setError(null);
@@ -29,34 +26,39 @@ export const useDifyWorkflow = () => {
       try {
         if (mode === "blocking") {
           setResult(null);
-          const response = await difyNextClient.runWorkflow({
+          const response = (await difyNextClient.runWorkflow(url, {
             inputs,
             response_mode: "blocking",
             user,
-          });
+          })) as WorkflowResponse;
           setResult(response);
         } else {
           setStreamMessages([]);
           setIsStreaming(true);
 
-          const eventSource = await difyNextClient.runWorkflow({
-            inputs,
-            response_mode: "streaming",
-            user,
-            onOpen: () => {
-              console.log("Stream started");
+          const eventSource = (await difyNextClient.runWorkflow(
+            url,
+            {
+              inputs,
+              response_mode: "streaming",
+              user,
+              onOpen: () => {
+                setIsStreaming(true);
+                console.log("Stream started");
+              },
+              onMessage: (data: SSEMessage) => {
+                setStreamMessages((prev) => [...prev, data]);
+              },
+              onError: (err: Error) => {
+                setError(err);
+                setIsStreaming(false);
+              },
+              onComplete: () => {
+                setIsStreaming(false);
+              },
             },
-            onMessage: (data: SSEMessage) => {
-              setStreamMessages((prev) => [...prev, data]);
-            },
-            onError: (err: Error) => {
-              setError(err);
-              setIsStreaming(false);
-            },
-            onComplete: () => {
-              setIsStreaming(false);
-            },
-          });
+            isStopWhenGetId,
+          )) as EventSource;
 
           eventSourceRef.current = eventSource;
         }
@@ -72,7 +74,7 @@ export const useDifyWorkflow = () => {
         }
       }
     },
-    []
+    [],
   );
 
   const closeConnection = useCallback((): void => {

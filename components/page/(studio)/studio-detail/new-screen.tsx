@@ -7,15 +7,17 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { SheetTrigger } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useDifyWorkflow } from "@/hooks/useDify";
+import { DifyEnpoint } from "@/lib/dify/cosnt";
 import { exampleStory } from "@/lib/example-story";
 import { cn } from "@/lib/utils";
 import { ArrowRightIcon, Loader2Icon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function NewScreen() {
   const { storyText, setStoryText } = useComicContext();
-  const { runWorkflow, streamMessages, closeConnection, loading } = useDifyWorkflow();
+  const { runWorkflow, streamMessages, closeConnection, isStreaming } = useDifyWorkflow();
   const [prompt, setPrompt] = useState("");
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const maxWords = 2000;
 
@@ -29,12 +31,18 @@ export default function NewScreen() {
   }
 
   function onGenerateStory() {
-    if (loading) return;
-    runWorkflow({ context: prompt }, "streaming");
+    if (isStreaming) return;
+    runWorkflow(DifyEnpoint.GenerateStoryEndpoint, { context: prompt }, "streaming");
   }
 
   useEffect(() => {
     setStoryText(streamMessages.map((msg) => msg.data?.text).join(""));
+    if (textAreaRef.current) {
+      textAreaRef.current.scrollTo({
+        top: textAreaRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }, [streamMessages, setStoryText]);
 
   useEffect(() => {
@@ -71,6 +79,7 @@ export default function NewScreen() {
                         placeholder="Describe your story"
                         className="flex-1"
                         value={prompt}
+                        disabled={isStreaming}
                         onChange={(e) => setPrompt(e.target.value)}
                         onKeyUp={(e) => {
                           if (e.key === "Enter") {
@@ -83,10 +92,14 @@ export default function NewScreen() {
                         className="inline-flex size-9 border-2 shadow-comic"
                         size={"icon"}
                         type="button"
-                        disabled={!prompt || loading}
+                        disabled={!prompt || isStreaming}
                         onClick={onGenerateStory}
                       >
-                        {loading ? <Loader2Icon size={14} className="animate-spin" /> : <ArrowRightIcon size={14} />}
+                        {isStreaming ? (
+                          <Loader2Icon size={14} className="animate-spin" />
+                        ) : (
+                          <ArrowRightIcon size={14} />
+                        )}
                       </Button>
                     </div>
                   </div>
@@ -103,6 +116,7 @@ export default function NewScreen() {
 
           {/* Text Input */}
           <Textarea
+            ref={textAreaRef}
             placeholder="Write or paste your story..."
             value={storyText}
             onChange={(e) => setStoryText(e.target.value)}

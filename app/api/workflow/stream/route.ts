@@ -1,4 +1,5 @@
 import { handleSSERequestAppRouter } from "@/lib/api-utils";
+import { DIFY_CONFIG } from "@/lib/config";
 import type { WorkflowRequest } from "@/types/dify";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
       user,
     };
 
-    return handleSSERequestAppRouter(requestData);
+    return handleSSERequestAppRouter(requestData, DIFY_CONFIG.apiKeyGenerate!);
   } catch (error) {
     console.error("SSE GET Error:", error);
     return NextResponse.json(

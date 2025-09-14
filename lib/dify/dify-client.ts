@@ -23,39 +23,40 @@ export class DifyAPIClient {
    * Execute workflow with support for both blocking and streaming modes
    */
   async runWorkflow(
-    params: RunWorkflowBlockingParams
-  ): Promise<WorkflowResponse>;
-  async runWorkflow(params: RunWorkflowStreamingParams): Promise<EventSource>;
-  async runWorkflow(
-    params: RunWorkflowBlockingParams | RunWorkflowStreamingParams
+    url: string,
+    params: RunWorkflowBlockingParams | RunWorkflowStreamingParams,
+    isStopWhenGetId?: boolean,
   ): Promise<WorkflowResponse | EventSource> {
     const requestData: WorkflowRequest = {
-      inputs: params.inputs,
+      inputs: { ...params.inputs },
       response_mode: params.response_mode || "blocking",
       user: params.user,
     };
 
     if (requestData.response_mode === "streaming") {
       const streamingParams = params as RunWorkflowStreamingParams;
-      return this.handleEventSourceSSE(requestData, {
-        onMessage: streamingParams.onMessage,
-        onError: streamingParams.onError,
-        onComplete: streamingParams.onComplete,
-        onOpen: streamingParams.onOpen,
-      });
+      return this.handleEventSourceSSE(
+        url,
+        requestData,
+        {
+          onMessage: streamingParams.onMessage,
+          onError: streamingParams.onError,
+          onComplete: streamingParams.onComplete,
+          onOpen: streamingParams.onOpen,
+        },
+        isStopWhenGetId,
+      ) as Promise<EventSource>;
     }
-    return this.handleRestRequest(requestData);
+
+    return this.handleRestRequest(url, requestData) as Promise<WorkflowResponse>;
   }
 
   /**
    * Handle regular REST API request through Next.js API route
    */
-  private async handleRestRequest(
-    data: WorkflowRequest
-  ): Promise<WorkflowResponse> {
+  private async handleRestRequest(url: string, data: WorkflowRequest): Promise<WorkflowResponse> {
     try {
-      const response: AxiosResponse<WorkflowResponse> =
-        await this.axiosInstance.post("/workflow/run", data);
+      const response: AxiosResponse<WorkflowResponse> = await this.axiosInstance.post(url, data);
       return response.data;
     } catch (error) {
       throw this.handleError(error as AxiosError);
@@ -66,8 +67,10 @@ export class DifyAPIClient {
    * Handle Server-Sent Events using EventSource (GET request)
    */
   private handleEventSourceSSE(
+    url: string,
     data: WorkflowRequest,
-    callbacks: SSECallbacks
+    callbacks: SSECallbacks,
+    isStopWhenGetId?: boolean,
   ): Promise<EventSource> {
     const { onMessage, onError, onComplete, onOpen } = callbacks;
 
@@ -78,11 +81,11 @@ export class DifyAPIClient {
       }
 
       // Create URL with query parameters for EventSource (GET only)
-      const url = new URL("/api/workflow/stream", window.location.origin);
-      url.searchParams.append("inputs", JSON.stringify(data.inputs));
-      url.searchParams.append("user", data.user);
+      const _url = new URL(url, window.location.origin);
+      _url.searchParams.append("inputs", JSON.stringify(data.inputs));
+      _url.searchParams.append("user", data.user);
 
-      const eventSource = new EventSource(url.toString());
+      const eventSource = new EventSource(_url.toString());
       this.eventSourceRef = eventSource;
 
       // Connection opened
@@ -94,14 +97,7 @@ export class DifyAPIClient {
       // Default message handler
       eventSource.onmessage = (event: MessageEvent): void => {
         try {
-          if (event.data.includes("node_finished")) {
-            onComplete?.();
-            // eventSource.close();
-            return;
-          }
-
           if (event.data.includes("Stream completed")) {
-            onComplete?.();
             onComplete?.();
             return;
           }
@@ -110,6 +106,19 @@ export class DifyAPIClient {
             const data: SSEMessage = JSON.parse(event.data);
             if (onMessage) {
               onMessage(data);
+            }
+          }
+
+          if (isStopWhenGetId) {
+            // Get workflow id
+            const isHasWorkFlowId = event.data.includes("workflow_run_id");
+            if (isHasWorkFlowId) {
+              const data = JSON.parse(event.data);
+              const workFlowId = data.workflow_run_id;
+              if (onMessage) {
+                onMessage(workFlowId);
+                onComplete?.();
+              }
             }
           }
         } catch (error) {
@@ -131,13 +140,7 @@ export class DifyAPIClient {
       };
 
       // Custom event listeners for Dify workflow events
-      const workflowEvents = [
-        "workflow_started",
-        "node_started",
-        "node_finished",
-        "workflow_finished",
-        "error",
-      ];
+      const workflowEvents = ["workflow_started", "node_started", "node_finished", "workflow_finished", "error"];
 
       workflowEvents.forEach((eventType) => {
         eventSource.addEventListener(eventType, (event: MessageEvent): void => {
@@ -202,10 +205,7 @@ export class DifyAPIClient {
    * Alternative SSE implementation using fetch + ReadableStream
    * Useful when EventSource limitations are encountered
    */
-  async handleFetchSSE(
-    data: WorkflowRequest,
-    callbacks: SSECallbacks
-  ): Promise<SSEConnection> {
+  async handleFetchSSE(data: WorkflowRequest, callbacks: SSECallbacks): Promise<SSEConnection> {
     const { onMessage, onError, onComplete, onOpen } = callbacks;
 
     try {

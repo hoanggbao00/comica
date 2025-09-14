@@ -58,3 +58,36 @@ export interface Character {
   palette: string[];
   image_url: string;
 }
+export interface WorkflowOutputParsed {
+  data: Data;
+}
+
+export interface Data {
+  title: string;
+  logline: string;
+  characters: Character[];
+  chapters: Chapter[];
+}
+
+export interface Chapter {
+  number: number;
+  title: string;
+  summary: string;
+  scenes: Scene[];
+}
+
+export interface Scene {
+  id: string;
+  beat: string;
+  details: string;
+}
+
+export interface Character {
+  name: string;
+  role: string;
+  traits: string[];
+  visual_notes: string;
+  image_prompt_en: string;
+  palette: string[];
+  image_url: string;
+}

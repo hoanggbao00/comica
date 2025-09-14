@@ -1,6 +1,6 @@
 // Type definitions
 export interface WorkflowInputs {
-  context: string;
+  context?: string;
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   [key: string]: any;
 }
@@ -50,7 +50,7 @@ export interface RunWorkflowParams extends Omit<WorkflowRequest, "response_mode"
 }
 
 export interface RunWorkflowStreamingParams extends RunWorkflowParams, SSECallbacks {
-  response_mode: "streaming";
+  response_mode: "blocking" | "streaming";
 }
 
 export interface RunWorkflowBlockingParams extends RunWorkflowParams {
