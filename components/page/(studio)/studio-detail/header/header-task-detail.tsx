@@ -15,6 +15,8 @@ export default function HeaderTaskDetail(props: Props) {
   const isSucceed = detailWorkflow?.status === "succeeded";
   const overviewData = isSucceed ? (JSON.parse(detailWorkflow?.outputs) as ComicPlanResponseData) : null;
 
+  const chapterLength = overviewData?.data.plan.chapter_number;
+
   useEffect(() => {
     if (isSucceed) {
       setIsEnabled(false);
@@ -27,7 +29,9 @@ export default function HeaderTaskDetail(props: Props) {
         <div className="max-w-[200px] truncate font-bold text-sm">
           {!overviewData?.data.plan.chapter_title ? "New Comic" : overviewData.data.plan.chapter_title}
         </div>
-        <div className="text-muted-foreground text-xs">{overviewData?.data.plan.chapter_number || 0} Pages</div>
+        <div className="text-muted-foreground text-xs">
+          {chapterLength} {chapterLength ? (chapterLength > 1 ? "Chapters" : "Chapter") : ""}
+        </div>
       </div>
     </div>
   );

@@ -42,7 +42,10 @@ export default function DetailScreen(props: Props) {
 
   const hasPrevious = !isLoadingImage && currentChapterIndex > 0;
   const hasNext =
-    !isLoadingImage && !!overviewData?.data && currentChapterIndex < overviewData?.data?.plan.page_plan.length - 1;
+    !isLoadingImage &&
+    !!overviewData?.data &&
+    currentChapterIndex < overviewData?.data?.plan.page_plan.length - 1 &&
+    false;
 
   function handleNext() {
     if (hasNext) {
