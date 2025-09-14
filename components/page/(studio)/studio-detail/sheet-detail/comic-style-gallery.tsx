@@ -5,11 +5,11 @@ import { motion } from "motion/react";
 import type React from "react";
 
 const GalleryCarousel: React.FC = () => {
-  const { selectedStyleIndex, setSelectedStyleIndex } = useComicContext();
+  const { selectedStyleIndex, setSelectedStyleIndex, listStyles } = useComicContext();
 
   // Handle infinite loop
   const getItemIndex = (index: number) => {
-    return ((index % comicStyles.length) + comicStyles.length) % comicStyles.length;
+    return ((index % listStyles.length) + listStyles.length) % listStyles.length;
   };
 
   const getVisibleItems = () => {
@@ -21,10 +21,10 @@ const GalleryCarousel: React.FC = () => {
       const itemIndex = getItemIndex(selectedStyleIndex + i);
 
       extendedItems.push({
-        ...comicStyles[itemIndex],
+        ...listStyles[itemIndex],
         position: i,
         isCenter: i === 0,
-        uniqueKey: `${comicStyles[itemIndex].id}-${Math.floor((selectedStyleIndex + i) / comicStyles.length)}`, // Stable key for infinite scroll
+        uniqueKey: `${listStyles[itemIndex].id}-${Math.floor((selectedStyleIndex + i) / listStyles.length)}`, // Stable key for infinite scroll
       });
     }
 
@@ -39,7 +39,7 @@ const GalleryCarousel: React.FC = () => {
       {/* Main Carousel Container */}
       <div className="relative flex items-center justify-center">
         {/* Cards Container */}
-        <div className="relative h-[400px] w-full max-w-6xl overflow-hidden">
+        <div className="relative h-[70svh] w-full max-w-6xl overflow-hidden">
           <div className="absolute inset-0 flex items-center justify-center">
             {visibleItems.map((item) => {
               const { position, isCenter } = item;
@@ -77,8 +77,8 @@ const GalleryCarousel: React.FC = () => {
                     {/* Image */}
                     <div className="relative h-48 overflow-hidden">
                       <img
-                        src={item.image}
-                        alt={item.title}
+                        src={"/images/comic-styles/noir-comix.jpg"}
+                        alt={item.name}
                         className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                       {isCenter && (
@@ -88,7 +88,7 @@ const GalleryCarousel: React.FC = () => {
 
                     {/* Content */}
                     <div className="p-4">
-                      <h3 className="mb-2 font-bold text-foreground text-xl">{item.title}</h3>
+                      <h3 className="mb-2 font-bold text-foreground text-xl capitalize">{item.name}</h3>
                       <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">{item.description}</p>
                     </div>
 

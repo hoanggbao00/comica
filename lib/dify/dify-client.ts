@@ -1,5 +1,5 @@
 import type { AxiosError, AxiosInstance, AxiosResponse } from "axios";
-import apiNextJsClient from "../diffy-client";
+import difyAxiosClient from "./diffy-axios-client";
 import type {
   CustomError,
   RunWorkflowBlockingParams,
@@ -16,16 +16,18 @@ export class DifyAPIClient {
   private eventSourceRef: EventSource | null = null;
 
   constructor() {
-    this.axiosInstance = apiNextJsClient;
+    this.axiosInstance = difyAxiosClient;
   }
 
   /**
    * Execute workflow with support for both blocking and streaming modes
    */
-  async runWorkflow(params: RunWorkflowBlockingParams): Promise<WorkflowResponse>;
+  async runWorkflow(
+    params: RunWorkflowBlockingParams
+  ): Promise<WorkflowResponse>;
   async runWorkflow(params: RunWorkflowStreamingParams): Promise<EventSource>;
   async runWorkflow(
-    params: RunWorkflowBlockingParams | RunWorkflowStreamingParams,
+    params: RunWorkflowBlockingParams | RunWorkflowStreamingParams
   ): Promise<WorkflowResponse | EventSource> {
     const requestData: WorkflowRequest = {
       inputs: params.inputs,
@@ -48,9 +50,12 @@ export class DifyAPIClient {
   /**
    * Handle regular REST API request through Next.js API route
    */
-  private async handleRestRequest(data: WorkflowRequest): Promise<WorkflowResponse> {
+  private async handleRestRequest(
+    data: WorkflowRequest
+  ): Promise<WorkflowResponse> {
     try {
-      const response: AxiosResponse<WorkflowResponse> = await this.axiosInstance.post("/workflow/run", data);
+      const response: AxiosResponse<WorkflowResponse> =
+        await this.axiosInstance.post("/workflow/run", data);
       return response.data;
     } catch (error) {
       throw this.handleError(error as AxiosError);
@@ -60,7 +65,10 @@ export class DifyAPIClient {
   /**
    * Handle Server-Sent Events using EventSource (GET request)
    */
-  private handleEventSourceSSE(data: WorkflowRequest, callbacks: SSECallbacks): Promise<EventSource> {
+  private handleEventSourceSSE(
+    data: WorkflowRequest,
+    callbacks: SSECallbacks
+  ): Promise<EventSource> {
     const { onMessage, onError, onComplete, onOpen } = callbacks;
 
     return new Promise((resolve, reject) => {
@@ -123,7 +131,13 @@ export class DifyAPIClient {
       };
 
       // Custom event listeners for Dify workflow events
-      const workflowEvents = ["workflow_started", "node_started", "node_finished", "workflow_finished", "error"];
+      const workflowEvents = [
+        "workflow_started",
+        "node_started",
+        "node_finished",
+        "workflow_finished",
+        "error",
+      ];
 
       workflowEvents.forEach((eventType) => {
         eventSource.addEventListener(eventType, (event: MessageEvent): void => {
@@ -187,7 +201,10 @@ export class DifyAPIClient {
    * Alternative SSE implementation using fetch + ReadableStream
    * Useful when EventSource limitations are encountered
    */
-  async handleFetchSSE(data: WorkflowRequest, callbacks: SSECallbacks): Promise<SSEConnection> {
+  async handleFetchSSE(
+    data: WorkflowRequest,
+    callbacks: SSECallbacks
+  ): Promise<SSEConnection> {
     const { onMessage, onError, onComplete, onOpen } = callbacks;
 
     try {

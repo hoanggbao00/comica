@@ -1,8 +1,8 @@
 import axios, { type AxiosError, type AxiosInstance } from "axios";
-import type {} from "./dify/types";
+import type {} from "./types";
 
 // Create Axios instance for Next.js API routes
-const apiNextJsClient: AxiosInstance = axios.create({
+const difyAxiosClient: AxiosInstance = axios.create({
   baseURL: "/api", // Points to Next.js API routes
   headers: {
     "Content-Type": "application/json",
@@ -11,27 +11,29 @@ const apiNextJsClient: AxiosInstance = axios.create({
 });
 
 // Add request interceptor for logging
-apiNextJsClient.interceptors.request.use(
+difyAxiosClient.interceptors.request.use(
   (config) => {
-    console.log(`Making request to: ${config.method?.toUpperCase()} ${config.url}`);
+    console.log(
+      `Making request to: ${config.method?.toUpperCase()} ${config.url}`
+    );
     return config;
   },
   (error) => {
     console.error("Request error:", error);
     return Promise.reject(error);
-  },
+  }
 );
 
 // Add response interceptor for error handling
-apiNextJsClient.interceptors.response.use(
+difyAxiosClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     console.error("Response error:", error);
     return Promise.reject(error);
-  },
+  }
 );
 
-export default apiNextJsClient;
+export default difyAxiosClient;
 
 // Enhanced Dify API client using Next.js routes
 // Create and export the API client instance

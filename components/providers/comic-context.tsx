@@ -1,13 +1,15 @@
 "use client";
 
 import { type IChapter, chapters } from "@/lib/mock-chapter";
-import { type ComicStyle, comicStyles } from "@/lib/mock-comic-style";
+import { useGetStyles } from "@/queries/style";
+import type { ComicStyle } from "@/types/comic-styles";
 import { type ReactNode, createContext, useContext, useState } from "react";
 
 // Define the shape of your context's value
 interface ComicContextType {
   storyText: string;
   setStoryText: (text: string) => void;
+  listStyles: ComicStyle[];
 
   selectedStyleIndex: number;
   setSelectedStyleIndex: (index: number) => void;
@@ -49,10 +51,13 @@ export const ComicProvider = ({ children }: ComicProviderProps) => {
   const [currentChapterId, setCurrentChapterId] = useState("1");
   const [isCreating, setIsCreating] = useState(false);
   const [isCreateSuccess, setIsCreateSuccess] = useState(false);
+  const { data } = useGetStyles();
+
+  const listStyles = data?.data || [];
 
   const getItemIndex = (index: number) => {
-    const i = ((index % comicStyles.length) + comicStyles.length) % comicStyles.length;
-    return comicStyles[i];
+    const i = ((index % listStyles.length) + listStyles.length) % listStyles.length;
+    return listStyles[i];
   };
 
   const comicStyleSelected = getItemIndex(selectedStyleIndex);
@@ -91,6 +96,7 @@ export const ComicProvider = ({ children }: ComicProviderProps) => {
 
     isCreateSuccess,
     setIsCreateSuccess,
+    listStyles,
   };
 
   return <ComicContext.Provider value={value}>{children}</ComicContext.Provider>;
