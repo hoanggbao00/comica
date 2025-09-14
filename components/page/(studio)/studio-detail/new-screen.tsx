@@ -10,11 +10,12 @@ import { useDifyWorkflow } from "@/hooks/useDify";
 import { DifyEnpoint } from "@/lib/dify/cosnt";
 import { exampleStory } from "@/lib/example-story";
 import { cn } from "@/lib/utils";
+import type { GetDetailResponse } from "@/queries/detail";
 import { ArrowRightIcon, Loader2Icon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-export default function NewScreen() {
-  const { storyText, setStoryText } = useComicContext();
+export default function NewScreen({ detailWorkflow }: { detailWorkflow?: GetDetailResponse | null }) {
+  const { storyText, setStoryText, listStyles, setSelectedStyleIndex } = useComicContext();
   const { runWorkflow, streamMessages, closeConnection, isStreaming } = useDifyWorkflow();
   const [prompt, setPrompt] = useState("");
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -50,6 +51,28 @@ export default function NewScreen() {
       closeConnection();
     };
   }, [closeConnection]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (detailWorkflow?.status === "succeeded") {
+      try {
+        const parsedInputs = JSON.parse(detailWorkflow?.inputs) as { comic_style: string; user_prompt: string };
+        if (parsedInputs.user_prompt) {
+          setStoryText(parsedInputs.user_prompt);
+        }
+        if (parsedInputs.comic_style) {
+          const foundIndex = listStyles.findIndex(
+            (v) => v.name.toLowerCase() === parsedInputs.comic_style.toLowerCase(),
+          );
+          if (foundIndex !== -1) {
+            setSelectedStyleIndex(foundIndex);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [detailWorkflow]);
   return (
     <>
       <div className="relative flex min-h-0 flex-1 flex-col items-center justify-center overflow-hidden px-6 pb-[120px]">
