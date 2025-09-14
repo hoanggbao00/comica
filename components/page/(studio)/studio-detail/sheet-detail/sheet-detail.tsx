@@ -120,9 +120,11 @@ export default function SheetDetail() {
                   {isFailed ? "We're sorry, something went wrong." : "This may take a moment"}
                 </p>
               </p>
-              <Button className="btn-comic mt-4 bg-comic-orange" onClick={() => setIsOverviewDialogOpen(false)}>
-                Close
-              </Button>
+              {isFailed && (
+                <Button className="btn-comic mt-4 bg-comic-orange" onClick={() => setIsOverviewDialogOpen(false)}>
+                  Close
+                </Button>
+              )}
             </div>
           </div>
         )}
