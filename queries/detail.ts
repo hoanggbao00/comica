@@ -4,9 +4,7 @@ export const useGetDetailWorkflow = (id?: string, isEnabled?: boolean) => {
   return useQuery({
     queryKey: ["detail-workflow", id],
     queryFn: async () => {
-      const response = await fetch(
-        `/api/workflow/run/detail?workflow_id=${id}`
-      );
+      const response = await fetch(`/api/workflow/run/detail?workflow_id=${id}`);
       const data = await response.json();
       return data as GetDetailResponse;
     },

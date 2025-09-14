@@ -5,16 +5,13 @@ export const useGetImage = (workflow_id: string, output: any) => {
   return useQuery({
     queryKey: ["image", workflow_id],
     queryFn: async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_GEMINI_API_URL}/comics/gemini`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: output,
-        }
-      );
+      const response = await fetch(`${process.env.NEXT_PUBLIC_GEMINI_API_URL}/comics/gemini`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: output,
+      });
       if (!response.ok) {
         throw new Error("Failed to generate image");
       }
