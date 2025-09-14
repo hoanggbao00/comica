@@ -3,6 +3,7 @@
 import { useComicContext } from "@/components/providers/comic-context";
 import { useGetDetailWorkflow } from "@/queries/detail";
 import { useGetImage } from "@/queries/get-image";
+import { useComicsStore } from "@/stores/recent-store";
 import type { ComicPlanResponseData } from "@/types/plan";
 import { useEffect, useState } from "react";
 import NewScreen from "../new-screen";
@@ -19,9 +20,9 @@ interface Props {
 }
 
 export default function DetailScreen(props: Props) {
-  const { tabActive } = useComicContext();
   const { id } = props;
-  const { setStoryText, listStyles, setSelectedStyleIndex } = useComicContext();
+  const { setStoryText, listStyles, setSelectedStyleIndex, tabActive } = useComicContext();
+  const { updateRecentComic } = useComicsStore();
   const idMain = "reader-content";
   const [isEnabled, setIsEnabled] = useState(true);
   const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
@@ -29,6 +30,7 @@ export default function DetailScreen(props: Props) {
   const { data: detailWorkflow } = useGetDetailWorkflow(id, isEnabled);
   const isSucceed = detailWorkflow?.status === "succeeded";
   const isRunning = detailWorkflow?.status === "running";
+  const isFailed = detailWorkflow?.status === "failed";
   const overviewData = isSucceed ? (JSON.parse(detailWorkflow?.outputs) as ComicPlanResponseData) : null;
 
   const {
@@ -60,10 +62,19 @@ export default function DetailScreen(props: Props) {
   }
 
   useEffect(() => {
-    if (isSucceed) {
+    if (isSucceed || isFailed) {
       setIsEnabled(false);
     }
-  }, [isSucceed]);
+  }, [isSucceed, isFailed]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (dataImage && id !== "new-comic") {
+      updateRecentComic(id, {
+        thumbnailBase64: dataImage?.data?.base64Images[0],
+      });
+    }
+  }, [dataImage]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {

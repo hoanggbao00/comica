@@ -7,7 +7,7 @@ import { useDifyWorkflow } from "@/hooks/useDify";
 import { DifyEnpoint } from "@/lib/dify/cosnt";
 import { comicStyles } from "@/lib/mock-comic-style";
 import { useGetDetailWorkflow } from "@/queries/detail";
-import { ChevronLeftIcon, ChevronRightIcon, Loader2Icon, XIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, Loader2Icon, XCircleIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import GalleryCarousel from "./comic-style-gallery";
 import OverviewDialog from "./overview-dialog";
@@ -17,10 +17,14 @@ export default function SheetDetail() {
   const [workflowId, setWorkflowId] = useState("");
   const { runWorkflow, streamMessages, isStreaming } = useDifyWorkflow();
   const [isEnabled, setIsEnabled] = useState(true);
+  const [isOverviewDialogOpen, setIsOverviewDialogOpen] = useState(false);
 
   const { data: workflowDetail, isLoading } = useGetDetailWorkflow(workflowId, isEnabled);
+
   const isRunning = workflowDetail?.status === "running";
-  const overviewData = workflowDetail?.status === "succeeded" ? JSON.parse(workflowDetail?.outputs) : null;
+  const isSucceed = workflowDetail?.status === "succeeded";
+  const isFailed = workflowDetail?.status === "failed";
+  const overviewData = isSucceed ? JSON.parse(workflowDetail?.outputs) : null;
 
   const isDisabled = isStreaming || isLoading || isRunning;
 
@@ -42,6 +46,12 @@ export default function SheetDetail() {
 
     runWorkflow(DifyEnpoint.CreateOverview, { user_prompt, comic_style, language }, "streaming", "abc-123", true);
   }
+
+  useEffect(() => {
+    if (isDisabled || isFailed) {
+      setIsOverviewDialogOpen(true);
+    }
+  }, [isDisabled, isFailed]);
 
   useEffect(() => {
     if (streamMessages.length === 0) return;
@@ -98,12 +108,21 @@ export default function SheetDetail() {
           </Button>
         </SheetFooter>
 
-        {isDisabled && (
+        {isOverviewDialogOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="rounded-2xl border-4 border-black bg-white p-8 text-center shadow-comic">
-              <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-comic-blue border-t-transparent" />
-              <div className="font-bold text-black text-xl">Creating Your Comic...</div>
-              <div className="text-muted-foreground">This may take a moment</div>
+            <div className="flex flex-col items-center justify-center gap-2 rounded-2xl border-4 border-black bg-white p-8 text-center shadow-comic">
+              {isFailed && <XCircleIcon className="text-red-500" size={36} />}
+              {isDisabled && <Loader2Icon className="animate-spin" size={36} />}
+
+              <p className="font-bold text-black text-xl">
+                {isFailed ? "Failed to Create Comic" : "Creating Your Comic..."}
+                <p className="text-base text-muted-foreground">
+                  {isFailed ? "We're sorry, something went wrong." : "This may take a moment"}
+                </p>
+              </p>
+              <Button className="btn-comic mt-4 bg-comic-orange" onClick={() => setIsOverviewDialogOpen(false)}>
+                Close
+              </Button>
             </div>
           </div>
         )}

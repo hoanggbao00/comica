@@ -4,15 +4,31 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useComicsStore } from "@/stores/recent-store";
 import type { ComicPlanResponseData } from "@/types/plan";
 import { BookOpenIcon, FileTextIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function OverviewDialog({
   workflowId,
   overviewData,
 }: { workflowId: string; overviewData: ComicPlanResponseData }) {
+  const { addRecentComic, recentComics } = useComicsStore();
   const data = overviewData?.data;
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    if (data && !recentComics.find((comic) => comic.id === workflowId)) {
+      addRecentComic({
+        id: workflowId,
+        title: data.plan.chapter_title,
+        summary: data.plan.chapter_summary,
+        thumbnailBase64: undefined,
+        chapterLength: data.plan.chapter_number,
+      });
+    }
+  }, [data]);
 
   return (
     <Dialog open={!!data}>
