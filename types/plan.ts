@@ -1,34 +1,21 @@
-export interface ComicPlanResponse {
-  plan: Plan;
-  page_plan: PagePlan[];
-  chapter: Chapter;
+export interface ComicPlanResponseData {
+  data: Data;
+}
+
+export interface Data {
+  characters: Character[];
   panels_flat: PanelsFlat[];
+  plan: Plan;
 }
 
-export interface Chapter {
-  number: number;
-  title: string;
-  summary: string;
-  scenes: Scene[];
-}
-
-export interface Scene {
-  id: string;
-  beat: string;
-  details: string;
-}
-
-export interface PagePlan {
-  page_number: number;
-  goal: string;
-  panels: Panel[];
-}
-
-export interface Panel {
-  panel_number: number;
-  scene_id: string;
-  beat: string;
-  details: string;
+export interface Character {
+  name: string;
+  role: string;
+  traits: string[];
+  visual_notes: string;
+  image_prompt_en: string;
+  palette: string[];
+  image_url: string;
 }
 
 export interface PanelsFlat {
@@ -49,45 +36,15 @@ export interface Plan {
   page_plan: PagePlan[];
 }
 
-export interface Character {
-  name: string;
-  role: string;
-  traits: string[];
-  visual_notes: string;
-  image_prompt_en: string;
-  palette: string[];
-  image_url: string;
-}
-export interface WorkflowOutputParsed {
-  data: Data;
+export interface PagePlan {
+  page_number: number;
+  goal: string;
+  panels: Panel[];
 }
 
-export interface Data {
-  title: string;
-  logline: string;
-  characters: Character[];
-  chapters: Chapter[];
-}
-
-export interface Chapter {
-  number: number;
-  title: string;
-  summary: string;
-  scenes: Scene[];
-}
-
-export interface Scene {
-  id: string;
+export interface Panel {
+  panel_number: number;
+  scene_id: string;
   beat: string;
   details: string;
-}
-
-export interface Character {
-  name: string;
-  role: string;
-  traits: string[];
-  visual_notes: string;
-  image_prompt_en: string;
-  palette: string[];
-  image_url: string;
 }

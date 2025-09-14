@@ -4,14 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { WorkflowOutputParsed } from "@/types/plan";
+import type { ComicPlanResponseData } from "@/types/plan";
 import { BookOpenIcon, FileTextIcon, UsersIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function OverviewDialog({
   workflowId,
   overviewData,
-}: { workflowId: string; overviewData: WorkflowOutputParsed }) {
+}: { workflowId: string; overviewData: ComicPlanResponseData }) {
   const data = overviewData?.data;
 
   return (
@@ -40,16 +40,16 @@ export default function OverviewDialog({
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <TabsContent value="overview" className="space-y-4">
               <div className="rounded-2xl border-4 border-black bg-comic-blue/10 p-6">
-                <h3 className="mb-2 font-bold text-xl">{data.title}</h3>
-                <p className="mb-4 text-muted-foreground">{data.logline}</p>
+                <h3 className="mb-2 font-bold text-xl">{data?.plan.chapter_title}</h3>
+                <p className="mb-4 text-muted-foreground">{data?.plan.chapter_summary}</p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="rounded-xl border-2 border-black bg-white p-4">
                     <div className="font-bold text-comic-purple">Total Characters</div>
-                    <div className="font-black text-2xl">{data.characters.length}</div>
+                    <div className="font-black text-2xl">{data?.characters?.length}</div>
                   </div>
                   <div className="rounded-xl border-2 border-black bg-white p-4">
                     <div className="font-bold text-comic-purple">Total Chapters</div>
-                    <div className="font-black text-2xl">{data.chapters.length}</div>
+                    <div className="font-black text-2xl">{data?.plan.chapter_number}</div>
                   </div>
                 </div>
               </div>
@@ -96,31 +96,32 @@ export default function OverviewDialog({
             <TabsContent value="scenes" className="space-y-4">
               <Accordion type="multiple">
                 <div className="space-y-6">
-                  {data.chapters.map((chapter) => (
+                  {data?.plan?.page_plan.map((chapter) => (
                     <AccordionItem
-                      id={chapter.number.toString()}
-                      key={chapter.number}
+                      id={chapter.page_number.toString()}
+                      key={chapter.page_number}
                       className="space-y-4"
-                      value={chapter.number.toString()}
+                      value={chapter.page_number.toString()}
                     >
                       <AccordionTrigger className="items-center rounded-xl border-2 border-black bg-comic-purple/10 p-4">
                         <div>
-                          <h3 className="font-bold text-lg">
-                            Chapter {chapter.number}: {chapter.title}
-                          </h3>
-                          <p className="text-muted-foreground text-sm">{chapter.summary}</p>
+                          <h3 className="font-bold text-lg">Chapter {chapter.page_number}</h3>
+                          <p className="text-muted-foreground text-sm">{chapter.goal}</p>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="grid gap-3">
-                        {chapter.scenes.map((scene, index) => (
-                          <div key={scene.id} className="rounded-2xl border-4 border-black bg-white p-4 shadow-comic">
+                        {chapter.panels.map((panel, index) => (
+                          <div
+                            key={panel.scene_id}
+                            className="rounded-2xl border-4 border-black bg-white p-4 shadow-comic"
+                          >
                             <div className="mb-3 flex items-center gap-3">
                               <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-black bg-comic-orange font-bold">
                                 {index + 1}
                               </div>
-                              <h4 className="font-bold text-lg">{scene.beat}</h4>
+                              <h4 className="font-bold text-lg">{panel.beat}</h4>
                             </div>
-                            <p className="text-muted-foreground">{scene.details}</p>
+                            <p className="text-muted-foreground">{panel.details}</p>
                           </div>
                         ))}
                       </AccordionContent>

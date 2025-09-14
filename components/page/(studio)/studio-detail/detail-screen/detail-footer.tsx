@@ -1,8 +1,8 @@
 "use client";
 
-import { useComicContext } from "@/components/providers/comic-context";
 import { Button } from "@/components/ui/button";
-import { ChevronDownIcon, ChevronUpIcon, Loader2Icon, ZapIcon } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { ChevronDownIcon, ChevronUpIcon, ZapIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 interface Props {
@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function DetailFooter({ idMain }: Props) {
-  const { isGenerating, setIsGenerating } = useComicContext();
   const mainSection = useRef<HTMLElement | null>(null);
 
   function scrollToTop() {
@@ -29,14 +28,6 @@ export default function DetailFooter({ idMain }: Props) {
         behavior: "smooth",
       });
     }
-  }
-
-  function generateNextChapter() {
-    setIsGenerating(true);
-    setTimeout(() => {
-      setIsGenerating(false);
-      scrollToTop();
-    }, 2000);
   }
 
   useEffect(() => {
@@ -60,23 +51,17 @@ export default function DetailFooter({ idMain }: Props) {
           </Button>
         </div>
 
-        <Button
-          onClick={generateNextChapter}
-          disabled={isGenerating}
-          className="btn-comic bg-comic-yellow font-comic text-black hover:bg-comic-pink"
-        >
-          {isGenerating ? (
-            <>
-              <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
-              Generating...
-            </>
-          ) : (
-            <>
-              <ZapIcon className="mr-2 h-4 w-4" />
-              Generate Next Chapter
-            </>
-          )}
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button className="btn-comic !bg-comic-yellow !scale-100 font-comic text-black opacity-50">
+                <ZapIcon className="mr-2 h-4 w-4" />
+                Generate Next Chapter
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Coming soon</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </footer>
   );

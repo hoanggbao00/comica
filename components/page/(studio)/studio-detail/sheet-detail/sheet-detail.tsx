@@ -14,13 +14,13 @@ import OverviewDialog from "./overview-dialog";
 
 export default function SheetDetail() {
   const { selectedStyleIndex, setSelectedStyleIndex, storyText, comicStyleSelected } = useComicContext();
-  const [workflowId, setWorkflowId] = useState("9495dcc6-bd6b-462c-8d49-8fe159f690f6");
+  const [workflowId, setWorkflowId] = useState("");
   const { runWorkflow, streamMessages, isStreaming } = useDifyWorkflow();
   const [isEnabled, setIsEnabled] = useState(true);
 
   const { data: workflowDetail, isLoading } = useGetDetailWorkflow(workflowId, isEnabled);
   const isRunning = workflowDetail?.status === "running";
-  const overviewData = workflowDetail?.status === "succeeded" && JSON.parse(workflowDetail?.outputs);
+  const overviewData = workflowDetail?.status === "succeeded" ? JSON.parse(workflowDetail?.outputs) : null;
 
   const isDisabled = isStreaming || isLoading || isRunning;
 
@@ -107,7 +107,7 @@ export default function SheetDetail() {
             </div>
           </div>
         )}
-        <OverviewDialog workflowId={workflowId} overviewData={overviewData} />
+        {overviewData && <OverviewDialog workflowId={workflowId} overviewData={overviewData} />}
       </SheetContent>
     </>
   );
