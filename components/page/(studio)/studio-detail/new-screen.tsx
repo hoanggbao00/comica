@@ -6,13 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SheetTrigger } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
+import { useDifyWorkflow } from "@/hooks/useDify";
 import { exampleStory } from "@/lib/example-story";
 import { cn } from "@/lib/utils";
-import { ArrowRightIcon } from "lucide-react";
-import { useState } from "react";
+import { ArrowRightIcon, Loader2Icon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function NewScreen() {
   const { storyText, setStoryText } = useComicContext();
+  const { runWorkflow, streamMessages, closeConnection, loading } = useDifyWorkflow();
   const [prompt, setPrompt] = useState("");
 
   const maxWords = 2000;
@@ -25,6 +27,21 @@ export default function NewScreen() {
   function setExampleStory() {
     setStoryText(exampleStory);
   }
+
+  function onGenerateStory() {
+    if (loading) return;
+    runWorkflow({ context: prompt }, "streaming");
+  }
+
+  useEffect(() => {
+    setStoryText(streamMessages.map((msg) => msg.data?.text).join(""));
+  }, [streamMessages, setStoryText]);
+
+  useEffect(() => {
+    return () => {
+      closeConnection();
+    };
+  }, [closeConnection]);
   return (
     <>
       <div className="relative flex min-h-0 flex-1 flex-col items-center justify-center overflow-hidden px-6 pb-[120px]">
@@ -55,14 +72,21 @@ export default function NewScreen() {
                         className="flex-1"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
+                        onKeyUp={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            onGenerateStory();
+                          }
+                        }}
                       />
                       <Button
                         className="inline-flex size-9 border-2 shadow-comic"
                         size={"icon"}
                         type="button"
-                        disabled={!prompt}
+                        disabled={!prompt || loading}
+                        onClick={onGenerateStory}
                       >
-                        <ArrowRightIcon size={14} />
+                        {loading ? <Loader2Icon size={14} className="animate-spin" /> : <ArrowRightIcon size={14} />}
                       </Button>
                     </div>
                   </div>
