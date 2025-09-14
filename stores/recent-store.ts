@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export type RecentComic = {
   id: string;
@@ -41,13 +41,16 @@ export const useComicsStore = create<ComicsStore>()(
 
       updateRecentComic: (id, updates) =>
         set((state) => ({
-          recentComics: state.recentComics.map((comic) => (comic.id === id ? { ...comic, ...updates } : comic)),
+          recentComics: state.recentComics.map((comic) =>
+            comic.id === id ? { ...comic, ...updates } : comic
+          ),
         })),
 
       clearRecentComics: () => set({ recentComics: [] }),
     }),
     {
       name: "comics-store",
-    },
-  ),
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
 );
