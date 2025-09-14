@@ -26,9 +26,13 @@ export const useComicsStore = create<ComicsStore>()(
       setRecentComics: (comics) => set({ recentComics: comics }),
 
       addRecentComic: (comic) =>
-        set((state) => ({
-          recentComics: [...state.recentComics, comic],
-        })),
+        set((state) => {
+          if (state.recentComics.find((c) => c.id === comic.id)) {
+            return state;
+          }
+
+          return { recentComics: [...state.recentComics, comic] };
+        }),
 
       removeRecentComic: (id) =>
         set((state) => ({
@@ -37,15 +41,13 @@ export const useComicsStore = create<ComicsStore>()(
 
       updateRecentComic: (id, updates) =>
         set((state) => ({
-          recentComics: state.recentComics.map((comic) =>
-            comic.id === id ? { ...comic, ...updates } : comic
-          ),
+          recentComics: state.recentComics.map((comic) => (comic.id === id ? { ...comic, ...updates } : comic)),
         })),
 
       clearRecentComics: () => set({ recentComics: [] }),
     }),
     {
       name: "comics-store",
-    }
-  )
+    },
+  ),
 );

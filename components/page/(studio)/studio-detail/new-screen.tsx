@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useDifyWorkflow } from "@/hooks/useDify";
 import { DifyEnpoint } from "@/lib/dify/cosnt";
 import { exampleStory } from "@/lib/example-story";
+import { APP_NAME } from "@/lib/og";
 import { cn } from "@/lib/utils";
 import type { GetDetailResponse } from "@/queries/detail";
 import { ArrowRightIcon, Loader2Icon } from "lucide-react";
@@ -75,8 +76,22 @@ export default function NewScreen({ detailWorkflow }: { detailWorkflow?: GetDeta
   }, [detailWorkflow]);
   return (
     <>
-      <div className="relative flex min-h-0 flex-1 flex-col items-center justify-center overflow-hidden px-6 pb-[120px]">
-        <div className="w-full max-w-4xl space-y-8">
+      <div className="relative flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center overflow-hidden">
+        <div className="flex w-full max-w-4xl flex-1 flex-col items-center justify-center space-y-8 px-6 pb-4">
+          <div
+            className={`flex transform items-center gap-2 transition-all duration-500 ${
+              storyText.length === 0
+                ? "pointer-events-none translate-y-full opacity-0 md:translate-y-0"
+                : "translate-y-[300%] opacity-100 md:translate-y-full"
+            }`}
+          >
+            <img src="/logo-500.png" alt="Logo" className="size-10 md:size-16" />
+            <div className="font-comic">
+              <p className="font-bold text-2xl md:text-4xl">{APP_NAME}</p>
+              <p className="text-sm md:text-base">Unleash your imagination — craft a story!</p>
+            </div>
+          </div>
+
           {/* Action Buttons - Hide when text is typed */}
           <div
             className={`transform transition-all duration-500 ${
@@ -143,17 +158,21 @@ export default function NewScreen({ detailWorkflow }: { detailWorkflow?: GetDeta
             placeholder="Write or paste your story..."
             value={storyText}
             onChange={(e) => setStoryText(e.target.value)}
-            className="max-h-[70vh] min-h-[200px] resize-none rounded-2xl border-4 border-black bg-white/90 text-lg shadow-comic backdrop-blur-sm transition-all duration-300 focus:shadow-comic-lg"
+            className="max-h-[50svh] min-h-[200px] resize-none rounded-2xl border-4 border-black bg-white/90 text-lg shadow-comic backdrop-blur-sm transition-all duration-300 focus:shadow-comic-lg"
           />
         </div>
 
         {/* footer */}
-        <div
-          className={`absolute right-0 bottom-0 left-0 transform border-black border-t-4 bg-comic-yellow/90 backdrop-blur-sm transition-all duration-500 ${
-            storyText.length > 0 ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-          }`}
-        >
-          <div className="flex flex-col items-center justify-center gap-4 px-6 py-4 text-center">
+        <div className={cn("w-full transform overflow-hidden backdrop-blur-sm transition-all duration-500")}>
+          <div
+            className={cn(
+              "flex flex-col items-center justify-center gap-4 border-black border-t-4 bg-comic-yellow/90 px-6 py-4 text-center",
+              {
+                "translate-y-0 opacity-100": storyText.length > 0,
+                "translate-y-full opacity-0": storyText.length === 0,
+              },
+            )}
+          >
             <div className={cn("font-medium text-black text-sm", wordCount > maxWords && "text-red-500")}>
               Word count: {wordCount}/{maxWords}
             </div>

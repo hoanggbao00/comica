@@ -2,6 +2,7 @@ import AnimatedBackground from "@/components/page/landing-page/animated-backgrou
 import Examples from "@/components/page/landing-page/examples";
 import Header from "@/components/page/landing-page/header";
 import Hero from "@/components/page/landing-page/hero";
+import Pricing from "@/components/page/landing-page/pricing-section";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <main>
         <Hero />
         <Examples />
+        <Pricing />
       </main>
     </div>
   );

@@ -38,7 +38,7 @@ const ComicCard = ({ comic }: { comic: RecentComic }) => (
       </div>
       <div className="p-4">
         <h3 className="mb-1 font-bold text-lg">{comic.title}</h3>
-        <p className="text-muted-foreground text-sm">{comic.summary}</p>
+        <p className="line-clamp-6 text-muted-foreground text-sm">{comic.summary}</p>
       </div>
     </Link>
   </Card>

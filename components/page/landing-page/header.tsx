@@ -54,7 +54,7 @@ const Header = () => {
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button className="btn-comic font-comic hover:bg-comic-orange" asChild>
-              <Link href="/studio">Try Free</Link>
+              <Link href="/studio/new-comic">Try Free</Link>
             </Button>
           </motion.div>
         </motion.div>

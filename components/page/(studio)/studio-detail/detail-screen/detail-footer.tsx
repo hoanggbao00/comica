@@ -38,8 +38,8 @@ export default function DetailFooter({ idMain }: Props) {
   }, [idMain]);
 
   return (
-    <footer className="sticky bottom-0 border-black border-t-4 bg-card p-4 shadow-comic-lg">
-      <div className="mx-auto flex max-w-4xl items-center justify-between">
+    <footer className="sticky bottom-0 border-black border-t-4 bg-card p-2 shadow-comic-lg md:p-4">
+      <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-2 md:flex-row">
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={scrollToTop} className="btn-comic bg-comic-yellow/70">
             <ChevronUpIcon className="h-4 w-4" />

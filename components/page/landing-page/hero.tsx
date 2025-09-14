@@ -99,13 +99,13 @@ const Hero = () => {
               variant="outline"
               className="rounded-2xl border-4 border-black px-6 py-4 font-comic text-lg shadow-comic transition-all hover:shadow-comic-lg"
             >
-              <Link href={"/studio/new-comic"}>Watch Demo</Link>
+              <Link href={"/studio"}>Watch Demo</Link>
             </Button>
           </motion.div>
         </motion.div>
 
         {/* Feature Pills */}
-        <motion.div className="flex flex-wrap justify-center gap-4" variants={itemVariants}>
+        <motion.div className="flex flex-wrap justify-center gap-4" variants={itemVariants} id="features">
           {["✨ AI-Powered", "🎯 Easy to Use", "⚡ Instant Results", "🎨 Professional Quality"].map(
             (feature, index) => (
               <motion.div

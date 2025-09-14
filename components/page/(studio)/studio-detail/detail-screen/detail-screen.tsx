@@ -113,7 +113,10 @@ export default function DetailScreen(props: Props) {
         {isSucceed && (
           <div className="mx-auto max-w-4xl space-y-4">
             <div className="mb-8 text-center">
-              <h1 className="mb-2 font-bold text-4xl" style={{ fontFamily: "Comic Sans MS, Comic Sans, cursive" }}>
+              <h1
+                className="mb-2 font-bold text-xl md:text-4xl"
+                style={{ fontFamily: "Comic Sans MS, Comic Sans, cursive" }}
+              >
                 {currentChapterData?.goal || "Loading..."}
               </h1>
               <div className="mx-auto h-1 w-32 rounded-full bg-primary shadow-comic" />

@@ -10,7 +10,7 @@ export default async function StudioNewComic() {
   return (
     <ComicProvider>
       <Sheet>
-        <div className="flex h-screen min-h-screen flex-col overflow-hidden">
+        <div className="flex h-screen flex-col">
           <StudioDetailHeader id={"new-comic"} />
           <NewScreen />
         </div>

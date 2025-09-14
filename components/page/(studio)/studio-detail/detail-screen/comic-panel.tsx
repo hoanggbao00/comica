@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 
 export const ComicPanel = ({ base64, index }: { base64: string; index: number }) => {
   return (
-    <Card className="!shadow-comic-lg min-h-96 overflow-hidden rounded-2xl border-4 border-black">
+    <Card className="!shadow-comic-lg overflow-hidden rounded-2xl border-4 border-black">
       <div className="relative">
         <img
           src={`data:image/png;base64,${base64}`}

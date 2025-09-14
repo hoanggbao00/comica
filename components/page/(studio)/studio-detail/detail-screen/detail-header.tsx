@@ -35,10 +35,7 @@ export default function DetailHeader({
           <span className="hidden md:inline">Previous</span>
         </Button>
 
-        <p
-          className="line-clamp-2 flex-1 text-center font-black"
-          style={{ fontFamily: "Comic Sans MS, Comic Sans, cursive" }}
-        >
+        <p className="comic-sans line-clamp-2 flex-1 text-center font-black">
           Chapter {currentChapterData?.page_number}: {currentChapterData?.goal}
         </p>
 

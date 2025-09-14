@@ -10,7 +10,7 @@ export default function ChangeTabHeader() {
   return (
     <div
       className={cn(
-        "-translate-x-1/2 absolute left-1/2 flex h-full items-center gap-2 py-2.5 font-geist font-medium",
+        "-translate-x-1/2 absolute left-1/2 hidden h-full items-center gap-2 py-2.5 font-geist font-medium md:flex",
         " [&_button[data-active]]:text-black [&_button]:text-muted-foreground [&_button]:transition-colors [&_button]:hover:text-black",
       )}
     >
