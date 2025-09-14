@@ -21,6 +21,7 @@ export interface ComicStyle {
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
+  image?: string;
 }
 
 export interface ImageSettings {

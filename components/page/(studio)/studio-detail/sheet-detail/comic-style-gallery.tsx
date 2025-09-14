@@ -7,11 +7,18 @@ import { motion } from "motion/react";
 import type React from "react";
 
 const GalleryCarousel: React.FC = () => {
-  const { selectedStyleIndex, setSelectedStyleIndex, listStyles, isListStyleLoading } = useComicContext();
+  const {
+    selectedStyleIndex,
+    setSelectedStyleIndex,
+    listStyles,
+    isListStyleLoading,
+  } = useComicContext();
 
   // Handle infinite loop
   const getItemIndex = (index: number) => {
-    return ((index % listStyles.length) + listStyles.length) % listStyles.length;
+    return (
+      ((index % listStyles.length) + listStyles.length) % listStyles.length
+    );
   };
 
   const getVisibleItems = () => {
@@ -28,7 +35,9 @@ const GalleryCarousel: React.FC = () => {
         ...listStyles[itemIndex],
         position: i,
         isCenter: i === 0,
-        uniqueKey: `${listStyles[itemIndex].id}-${Math.floor((selectedStyleIndex + i) / listStyles.length)}`, // Stable key for infinite scroll
+        uniqueKey: `${listStyles[itemIndex].id}-${Math.floor(
+          (selectedStyleIndex + i) / listStyles.length
+        )}`, // Stable key for infinite scroll
       });
     }
 
@@ -61,7 +70,9 @@ const GalleryCarousel: React.FC = () => {
                 return (
                   <motion.div
                     key={item.uniqueKey} // Use the stable unique key
-                    className={`absolute cursor-pointer ${isCenter ? "z-20" : "z-10"}`}
+                    className={`absolute cursor-pointer ${
+                      isCenter ? "z-20" : "z-10"
+                    }`}
                     animate={{
                       x: baseOffset,
                       scale: isCenter ? 1.1 : 0.85,
@@ -84,13 +95,17 @@ const GalleryCarousel: React.FC = () => {
                     }}
                   >
                     <div
-                      className={`relative aspect-[5/6] h-80 overflow-hidden rounded-2xl border border-gallery-border bg-background shadow-lg transition-all duration-300 hover:shadow-xl ${isCenter ? "shadow-2xl ring-2 ring-primary/20" : ""}
+                      className={`relative aspect-[5/6] h-80 overflow-hidden rounded-2xl border border-gallery-border bg-background shadow-lg transition-all duration-300 hover:shadow-xl ${
+                        isCenter ? "shadow-2xl ring-2 ring-primary/20" : ""
+                      }
                     `}
                     >
                       {/* Image */}
                       <div className="relative h-48 overflow-hidden">
                         <img
-                          src={"/images/comic-styles/noir-comix.jpg"}
+                          src={
+                            item.image || "/images/comic-styles/noir-comix.jpg"
+                          }
                           alt={item.name}
                           className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                         />
@@ -103,12 +118,18 @@ const GalleryCarousel: React.FC = () => {
 
                       {/* Content */}
                       <div className="p-4">
-                        <h3 className="mb-2 font-bold text-foreground text-xl capitalize">{item.name}</h3>
-                        <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                        <h3 className="mb-2 font-bold text-foreground text-xl capitalize">
+                          {item.name}
+                        </h3>
+                        <p className="line-clamp-3 text-muted-foreground text-sm leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
 
                       {/* Glassmorphism overlay for non-center items */}
-                      {!isCenter && <div className="glass-bg absolute inset-0 backdrop-blur-[2px]" />}
+                      {!isCenter && (
+                        <div className="glass-bg absolute inset-0 backdrop-blur-[2px]" />
+                      )}
                     </div>
                   </motion.div>
                 );
